@@ -16,6 +16,7 @@ import GroupsIcon from "@mui/icons-material/Groups"
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
+import Avatar from "@mui/material/Avatar"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
 
@@ -128,17 +129,11 @@ const Dashboard = () => {
       <Grid sx={{ my: 4 }} container spacing={2}>
         <Grid item xs={7}>
           <Item>
-            <Stack
-              sx={{ mb: 4 }}
-              alignItems={"center"}
-              flexDirection={"row"}
-              justifyContent={"space-between"}
-              spacing={2}
-            >
+            <Stack sx={{ mb: 4 }} alignItems={"center"} direction={"row"} justifyContent={"space-between"} spacing={2}>
               <Typography variant="h6" gutterBottom>
                 Profile Stats
               </Typography>
-              <Stack alignItems={"center"} flexDirection={"row"}>
+              <Stack alignItems={"center"} direction={"row"}>
                 <Box sx={{ minWidth: 120, mr: 2 }}>
                   {/* <FormControl fullWidth> */}
                   {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
@@ -215,7 +210,7 @@ const Dashboard = () => {
                 <Stack
                   sx={{ mb: 1 }}
                   alignItems={"center"}
-                  flexDirection={"row"}
+                  direction={"row"}
                   justifyContent={"space-between"}
                   spacing={2}
                 >
@@ -225,7 +220,7 @@ const Dashboard = () => {
                     </Typography>
                   </Stack>
 
-                  <Stack alignItems={"center"} flexDirection={"row"}>
+                  <Stack alignItems={"center"} direction={"row"}>
                     <Select
                       sx={{
                         background: "#054E31",
@@ -249,8 +244,8 @@ const Dashboard = () => {
                 <Typography variant="h3" gutterBottom>
                   35
                 </Typography>
-                <Stack alignItems={"center"} flexDirection={"row"} justifyContent={"space-between"}>
-                  <Stack flexDirection={"row"} spacing={2}>
+                <Stack alignItems={"center"} direction={"row"} justifyContent={"space-between"}>
+                  <Stack direction={"row"} spacing={2}>
                     <Typography component={"span"} sx={{ color: "#3A7C0E" }}>
                       Opened: 27
                     </Typography>
@@ -263,44 +258,38 @@ const Dashboard = () => {
                 </Stack>
               </Item>
             </Grid>
-            {/* <Grid item xs={12}>
+            <Grid item xs={12}>
               <Item>
                 <Stack
                   // sx={{ mb: 4 }}
                   alignItems={"center"}
-                  flexDirection={"row"}
+                  direction={"row"}
                   justifyContent={"space-between"}
                   spacing={2}
                 >
                   <Box>
                     <Typography variant="h6" gutterBottom>
-                      Jobs Created
+                      Top Referrers
                     </Typography>
                   </Box>
-
-                  <Stack alignItems={"center"} flexDirection={"row"}>
-                    <Select
-                      sx={{
-                        background: "#054E31",
-                        color: "white",
-                        "& .MuiSvgIcon-root": {
-                          color: "white",
-                        },
-                        height: "30px",
-                      }}
-                      fullWidth
-                      value={"January"}
-                      id="demo-simple-4"
-                      label="Age"
-                    >
-                      <MenuItem value={"January"}>January</MenuItem>
-                      <MenuItem value={"February"}>February</MenuItem>
-                      <MenuItem value={"March"}>March</MenuItem>
-                    </Select>
-                  </Stack>
+                </Stack>
+                <Stack spacing={2}>
+                  {[1, 2, 3].map((item) => (
+                    <Stack key={item} alignItems={"center"} justifyContent={"space-between"} direction={"row"}>
+                      <Stack spacing={2} alignItems={"center"} direction={"row"}>
+                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                        <Typography variant="body2" gutterBottom>
+                          Olakunle Babatunde
+                        </Typography>
+                      </Stack>
+                      <Typography variant="h6" gutterBottom>
+                        18
+                      </Typography>
+                    </Stack>
+                  ))}
                 </Stack>
               </Item>
-            </Grid> */}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

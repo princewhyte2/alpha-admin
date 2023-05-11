@@ -55,7 +55,7 @@ export const dataProvider = {
     const url = `${apiUrl}/${resource}`
     return httpClient(url).then(({ json }) => {
       console.log('2',json)
-      return { data: json.result.data }
+      return { data: json }
   })
   },
 
