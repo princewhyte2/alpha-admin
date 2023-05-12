@@ -2,8 +2,8 @@
 import { fetchUtils } from "react-admin"
 import { stringify } from "query-string"
 
-const apiUrl = "http://localhost:3000/api"
-// const apiUrl = "https://alpha-admin-kappa.vercel.app/api"
+// const apiUrl = "http://localhost:3000/api"
+const apiUrl = "https://alpha-admin-kappa.vercel.app/api"
 
 export const httpClient = (url: string, options: any = {}) => {
   if (!options.headers) {
