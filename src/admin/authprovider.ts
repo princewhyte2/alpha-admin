@@ -1,23 +1,22 @@
-import { httpClient } from './dataprovider'
+import { httpClient } from "./dataprovider";
 
-const apiUrl = 'https://backend-staging.workfynder.com/api';
+const apiUrl = "https://backend-staging.workfynder.com/api";
 
 // TypeScript users must reference the type: `AuthProvider`
 export const authProvider = {
   // called when the user attempts to log in
-  login: async({ username, password }: any) => {
+  login: async ({ username, password }: any) => {
     // console.log({ username, password })
-     const data = {email:username,password,login_mode:'email'}
+    const data = { email: username, password, login_mode: "email" };
     return httpClient(`${apiUrl}/auth/login`, {
-            method: 'POST',
-       body: JSON.stringify(data),
-        }).then(({ json }) => {
-          localStorage.setItem('authToken', json.result.token)
-          Promise.resolve()
-        })
+      method: "POST",
+      body: JSON.stringify(data),
+    }).then(({ json }) => {
+      localStorage.setItem("authToken", json.result.token);
+      Promise.resolve();
+    });
     // localStorage.setItem("username", username);
     // accept all username/password combinations
-   
   },
   // called when the user clicks on the logout button
   logout: () => {
@@ -25,7 +24,7 @@ export const authProvider = {
     return Promise.resolve();
   },
   // called when the API returns an error
-  checkError: ({ status }:any) => {
+  checkError: ({ status }: any) => {
     if (status === 401 || status === 403) {
       localStorage.removeItem("authtoken");
       return Promise.reject();
