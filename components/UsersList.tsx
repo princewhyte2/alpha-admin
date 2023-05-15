@@ -1,7 +1,26 @@
-import { BooleanField, Datagrid, DateField, EmailField, List, NumberField, TextField } from "react-admin"
+import {
+  EditButton,
+  ShowButton,
+  BooleanField,
+  Datagrid,
+  DateField,
+  EmailField,
+  List,
+  NumberField,
+  TextField,
+} from "react-admin"
 export const UserList = () => (
   <List>
-    <Datagrid rowClick="edit">
+    <Datagrid
+      sx={{
+        // backgroundColor: "Lavender",
+        "& .RaDatagrid-headerCell": {
+          backgroundColor: "#3E4095",
+          color: "white",
+        },
+      }}
+      // rowClick="edit"
+    >
       <TextField source="id" />
       <TextField source="title" />
       <TextField source="first_name" />
@@ -9,9 +28,11 @@ export const UserList = () => (
       <TextField source="last_name" />
       <EmailField source="email" />
       <TextField source="gender" />
-      <DateField source="date_of_birth" />
-      <TextField source="referrer_code" />
       <DateField source="referrer_point" />
+      <EditButton />
+      <ShowButton />
+      {/* <DateField source="date_of_birth" />
+      <TextField source="referrer_code" />
       <TextField source="hobbies" />
       <BooleanField source="has_set_security_question" />
       <TextField source="phone_number" />
@@ -22,7 +43,7 @@ export const UserList = () => (
       <BooleanField source="has_verified_phone_number" />
       <BooleanField source="has_verified_other_phone_number" />
       <BooleanField source="has_created_company" />
-      <NumberField source="relationships.total_connections" />
+      <NumberField source="relationships.total_connections" /> */}
     </Datagrid>
   </List>
 )

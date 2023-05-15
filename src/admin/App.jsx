@@ -9,7 +9,7 @@ import FlagIcon from "@mui/icons-material/Flag"
 import FeedIcon from "@mui/icons-material/Feed"
 import GroupAddIcon from "@mui/icons-material/GroupAdd"
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing"
-import { Admin, Resource, ListGuesser } from "react-admin"
+import { Admin, Resource, ListGuesser, defaultTheme } from "react-admin"
 import { authProvider } from "./authprovider"
 import { OccupationList } from "../../components/OccupationsList"
 import { IndustryList } from "../../components/IndustriesList"
@@ -20,9 +20,61 @@ import { JobList } from "../../components/JobList"
 import { PostList } from "../../components/PostList"
 import Dashboard from "../../components/Dashboard"
 import { UserList } from "../../components/UsersList"
+import { MyLayout } from "../../components/Mylayout"
+
+const theme = {
+  ...defaultTheme,
+  components: {
+    ...defaultTheme.components,
+    RaDatagrid: {
+      styleOverrides: {
+        root: {
+          // backgroundColor: "Lavender",
+          "& .RaDatagrid-headerCell": {
+            backgroundColor: "#3E4095",
+            color: "white",
+          },
+        },
+      },
+    },
+  },
+}
+
+const myTheme = {
+  ...defaultTheme,
+  components: {
+    ...defaultTheme.components,
+    RaDatagrid: {
+      styleOverrides: {
+        root: {
+          // backgroundColor: "Lavender",
+          "& .RaDatagrid-headerCell": {
+            backgroundColor: "#3E4095",
+            color: "white",
+            fontFamily: "Circular Std",
+          },
+        },
+      },
+    },
+  },
+  palette: {
+    primary: {
+      main: "#3E4095",
+      dark: "#1F204A",
+    },
+  },
+  typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: ["Circular Std", "sans-serif"].join(","),
+    color: "white",
+    button: {
+      textTransform: "none",
+    },
+  },
+}
 
 const App = () => (
-  <Admin dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider}>
+  <Admin theme={myTheme} dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider}>
     <Resource icon={GroupsIcon} name="users" list={UserList} />
     <Resource icon={EngineeringIcon} name="occupations" list={OccupationList} recordRepresentation={"name"} />
     <Resource icon={FactoryIcon} name="industries" list={IndustryList} recordRepresentation={"name"} />
