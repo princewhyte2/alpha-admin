@@ -24,6 +24,12 @@ import { MyLayout } from "../../components/Mylayout"
 import UserShow from "../../components/UserShow"
 import JobShow from "../../components/JobShow"
 import PostShow from "../../components/PostShow"
+import { OccupationCreate } from "../../components/OccupationCreate"
+import { OccupationEdit } from "../../components/OccupationEdit"
+import { SkillEdit } from "../../components/SkillEdit"
+import { SkillCreate } from "../../components/SkillCreate"
+import { IndustryEdit } from "../../components/IndustriesEdit"
+import { IndustryCreate } from "../../components/IndustryCreate"
 
 const theme = {
   ...defaultTheme,
@@ -95,9 +101,23 @@ const App = () => (
       list={JobList}
     />
     <Resource icon={FeedIcon} name="posts" list={PostList} show={PostShow} />
-    <Resource icon={EngineeringIcon} name="occupations" list={OccupationList} recordRepresentation={"name"} />
-    <Resource icon={FactoryIcon} name="industries" list={IndustryList} recordRepresentation={"name"} />
-    <Resource icon={PrecisionManufacturingIcon} name="skills" list={SkillList} />
+    <Resource
+      icon={EngineeringIcon}
+      name="occupations"
+      list={OccupationList}
+      edit={OccupationEdit}
+      create={OccupationCreate}
+      recordRepresentation={"name"}
+    />
+    <Resource
+      icon={FactoryIcon}
+      name="industries"
+      edit={IndustryEdit}
+      create={IndustryCreate}
+      list={IndustryList}
+      recordRepresentation={"name"}
+    />
+    <Resource icon={PrecisionManufacturingIcon} edit={SkillEdit} create={SkillCreate} name="skills" list={SkillList} />
     <Resource icon={GroupAddIcon} name="referrals" list={ReferralList} />
     <Resource icon={FlagIcon} name="countries" list={CountryList} />
     {/* <Resource name="projects" list={ListGuesser} /> */}

@@ -12,6 +12,7 @@ import Stack from "@mui/material/Stack"
 import IconButton from "@mui/material/IconButton"
 import WorkIcon from "@mui/icons-material/Work"
 import GroupIcon from "@mui/icons-material/Group"
+import useSWR from "swr"
 import GroupsIcon from "@mui/icons-material/Groups"
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -31,7 +32,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }))
 
-const data = [
+const profiledata = [
   { name: "Jan", employer: 40, artisan: 90, amt: 100 },
   { name: "Feb", employer: 70, artisan: 50, amt: 2400 },
   { name: "Mar", employer: 20, artisan: 60, amt: 2400 },
@@ -62,7 +63,11 @@ const data = [
 //     </BarChart>
 //   </ResponsiveContainer>
 // )
-
+const apiUrl = "https://backend-staging.workfynder.com/api"
+const getDashBoardInfo = async () => {
+  const response = await httpClient(apiUrl + "/dashboard")
+  return response.json.result
+}
 const Dashboard = () => {
   // const [data, setData] = React.useState([
   //   { name: "Jan", employer: 40, pv: 90, amt: 100 },
@@ -72,6 +77,33 @@ const Dashboard = () => {
   //   { name: "May", employer: 57, pv: 120, amt: 2400 },
   //   { name: "Jun", employer: 29, pv: 75, amt: 2400 },
   // ])
+  const { data } = useSWR("dashboard", getDashBoardInfo)
+
+  const computedProfile = React.useMemo(() => {
+    if (!data) {
+      return null
+    }
+    const transformedData = Object.entries(data.profileStats).map(([month, entries]: any) => {
+      const employerTotal = entries.find((entry: any) => entry.user_type === "employer").total
+      const artisanTotal = entries.find((entry: any) => entry.user_type === "artisan").total
+      return {
+        month: month.charAt(0).toUpperCase() + month.slice(1),
+        employer: employerTotal,
+        artisan: artisanTotal,
+        amt: employerTotal + artisanTotal,
+      }
+    })
+
+    const finalData = transformedData.map(({ month, employer, artisan, amt }) => ({
+      month,
+      employer: transformedData.filter((obj) => obj.month === month).reduce((acc, obj) => acc + obj.employer, 0),
+      artisan: transformedData.filter((obj) => obj.month === month).reduce((acc, obj) => acc + obj.artisan, 0),
+      amt: transformedData.filter((obj) => obj.month === month).reduce((acc, obj) => acc + obj.amt, 0),
+    }))
+    return finalData
+  }, [data])
+
+  console.log("dashboard", computedProfile)
 
   return (
     <Container disableGutters sx={{ py: 4 }} maxWidth="xl">
@@ -84,7 +116,7 @@ const Dashboard = () => {
                   Total Jobs
                 </Typography>
                 <Typography variant="h3" gutterBottom>
-                  200
+                  {data?.cardStats?.total_number_of_jobs}
                 </Typography>
               </Stack>
               <IconButton aria-label="work" size="large">
@@ -101,7 +133,7 @@ const Dashboard = () => {
                   Total Artisans
                 </Typography>
                 <Typography variant="h3" gutterBottom>
-                  200
+                  {data?.cardStats?.total_number_of_artisans}
                 </Typography>
               </Stack>
               <IconButton aria-label="work" size="large">
@@ -118,7 +150,7 @@ const Dashboard = () => {
                   Total Employers
                 </Typography>
                 <Typography variant="h3" gutterBottom>
-                  200
+                  {data?.cardStats?.total_number_of_jobs}
                 </Typography>
               </Stack>
               <IconButton aria-label="work" size="large">
@@ -184,25 +216,27 @@ const Dashboard = () => {
                 </Box>
               </Stack>
             </Stack>
-            <BarChart
-              width={600}
-              height={300}
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="artisan" fill="#3E4095" />
-              <Bar dataKey="employer" fill="#1F204A" />
-            </BarChart>
+            {computedProfile && (
+              <BarChart
+                width={600}
+                height={300}
+                data={computedProfile}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="artisan" fill="#3E4095" />
+                <Bar dataKey="employer" fill="#1F204A" />
+              </BarChart>
+            )}
           </Item>
         </Grid>
         <Grid item xs={5}>
@@ -244,7 +278,7 @@ const Dashboard = () => {
                   </Stack>
                 </Stack>
                 <Typography variant="h3" gutterBottom>
-                  35
+                  {data?.totalJobsForMonth}
                 </Typography>
                 <Stack alignItems={"center"} direction={"row"} justifyContent={"space-between"}>
                   <Stack direction={"row"} spacing={2}>
@@ -276,16 +310,16 @@ const Dashboard = () => {
                   </Box>
                 </Stack>
                 <Stack spacing={2}>
-                  {[1, 2, 3].map((item) => (
-                    <Stack key={item} alignItems={"center"} justifyContent={"space-between"} direction={"row"}>
+                  {data?.topTenReferrers.map((item: any, index: number) => (
+                    <Stack key={index} alignItems={"center"} justifyContent={"space-between"} direction={"row"}>
                       <Stack spacing={2} alignItems={"center"} direction={"row"}>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                        <Avatar alt={item.referred_by.first_name} src="/admin.jpg" />
                         <Typography variant="body2" gutterBottom>
-                          Olakunle Babatunde
+                          {item.referred_by.first_name} {item.referred_by.middle_name} {item.referred_by.last_name}
                         </Typography>
                       </Stack>
                       <Typography variant="h6" gutterBottom>
-                        18
+                        {item.total}
                       </Typography>
                     </Stack>
                   ))}
