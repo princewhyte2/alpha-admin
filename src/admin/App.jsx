@@ -9,7 +9,7 @@ import FlagIcon from "@mui/icons-material/Flag"
 import FeedIcon from "@mui/icons-material/Feed"
 import GroupAddIcon from "@mui/icons-material/GroupAdd"
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing"
-import { Admin, Resource, ListGuesser, defaultTheme } from "react-admin"
+import { Admin, Resource, ListGuesser, defaultTheme, ShowGuesser, EditGuesser } from "react-admin"
 import { authProvider } from "./authprovider"
 import { OccupationList } from "../../components/OccupationsList"
 import { IndustryList } from "../../components/IndustriesList"
@@ -21,6 +21,9 @@ import { PostList } from "../../components/PostList"
 import Dashboard from "../../components/Dashboard"
 import { UserList } from "../../components/UsersList"
 import { MyLayout } from "../../components/Mylayout"
+import UserShow from "../../components/UserShow"
+import JobShow from "../../components/JobShow"
+import PostShow from "../../components/PostShow"
 
 const theme = {
   ...defaultTheme,
@@ -75,14 +78,28 @@ const myTheme = {
 
 const App = () => (
   <Admin theme={myTheme} dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider}>
-    <Resource icon={GroupsIcon} name="users" list={UserList} />
+    <Resource
+      icon={GroupsIcon}
+      // create={ EditGuesser }
+      name="users"
+      // edit={ EditGuesser }
+      show={UserShow}
+      list={UserList}
+    />
+    <Resource
+      icon={WorkHistoryIcon}
+      show={JobShow}
+      // edit={EditGuesser}
+      // create={EditGuesser}
+      name="jobs"
+      list={JobList}
+    />
+    <Resource icon={FeedIcon} name="posts" list={PostList} show={PostShow} />
     <Resource icon={EngineeringIcon} name="occupations" list={OccupationList} recordRepresentation={"name"} />
     <Resource icon={FactoryIcon} name="industries" list={IndustryList} recordRepresentation={"name"} />
     <Resource icon={PrecisionManufacturingIcon} name="skills" list={SkillList} />
     <Resource icon={GroupAddIcon} name="referrals" list={ReferralList} />
-    <Resource icon={WorkHistoryIcon} name="jobs" list={JobList} />
     <Resource icon={FlagIcon} name="countries" list={CountryList} />
-    <Resource icon={FeedIcon} name="posts" list={PostList} />
     {/* <Resource name="projects" list={ListGuesser} /> */}
   </Admin>
 )

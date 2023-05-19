@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tiptap/pm": "^2.0.3",
+    "@tiptap/react": "^2.0.3",
+    "@tiptap/starter-kit": "^2.0.3",
     "@types/node": "18.16.2",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
     "axios": "^1.4.0",
+    "dayjs": "^1.11.7",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
     "next": "13.3.1",
@@ -20,6 +24,7 @@
     "react-admin": "^4.10.1",
     "react-dom": "18.2.0",
     "recharts": "^2.6.0",
+    "swr": "^2.1.5",
     "typescript": "5.0.4"
   }
 }

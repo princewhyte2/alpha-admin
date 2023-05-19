@@ -3,7 +3,7 @@ import { fetchUtils } from "react-admin";
 import { stringify } from "query-string";
 
 // const apiUrl = "http://localhost:3000/api"
-const apiUrl = "https://alpha-admin-kappa.vercel.app/api";
+const apiUrl = "https://alpha-admin-kappa.vercel.app/api"; 
 
 export const httpClient = (url: string, options: any = {}) => {
   if (!options.headers) {
@@ -42,8 +42,9 @@ export const dataProvider = {
 
   getOne: (resource: string, params: any) =>
     httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => {
+      console.log(`data ${resource} `, json);
       return {
-        data: json.result.data,
+        data: json,
       };
     }),
 

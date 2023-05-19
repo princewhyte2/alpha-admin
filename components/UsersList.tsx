@@ -8,9 +8,21 @@ import {
   List,
   NumberField,
   TextField,
+  TextInput,
+  CreateButton,
+  FilterForm,
+  FilterButton,
 } from "react-admin"
+import { Stack } from "@mui/material"
+const postFilters = [
+  // <TextInput key="q" label="Search" source="q" alwaysOn />,
+  <TextInput key="type" label="User Type" source="user_type" defaultValue="artisan" />,
+  <TextInput key="title" label="Title" source="title" />,
+  <TextInput key="gender" label="Gender" source="gender" />,
+]
+
 export const UserList = () => (
-  <List>
+  <List filters={postFilters}>
     <Datagrid
       sx={{
         // backgroundColor: "Lavender",
@@ -26,10 +38,11 @@ export const UserList = () => (
       <TextField source="first_name" />
       <TextField source="middle_name" />
       <TextField source="last_name" />
+      <TextField source="user_type" />
       <EmailField source="email" />
       <TextField source="gender" />
-      <DateField source="referrer_point" />
-      <EditButton />
+      <TextField source="referrer_point" />
+
       <ShowButton />
       {/* <DateField source="date_of_birth" />
       <TextField source="referrer_code" />
