@@ -11,46 +11,34 @@ import {
   TextInput,
   CreateButton,
   FilterForm,
-  downloadCSV,
   FilterButton,
+  downloadCSV,
 } from "react-admin"
-import jsonExport from "jsonexport/dist"
 import { Stack } from "@mui/material"
+import jsonExport from "jsonexport/dist"
 const postFilters = [
   // <TextInput key="q" label="Search" source="q" alwaysOn />,
-  <TextInput key="type" label="User Type" source="user_type" defaultValue="artisan" />,
+  // <TextInput key="type" label="User Type" source="user_type" defaultValue="artisan" />,
   <TextInput key="title" label="Title" source="title" />,
   <TextInput key="gender" label="Gender" source="gender" />,
 ]
-
 const exporter = (users: any) => {
   const postsForExport = users.map((user: any) => {
-    const { id, title, first_name, middle_name, last_name, user_type, email, gender, referrer_point } = user // omit backlinks and author
+    const { id, title, first_name, middle_name, last_name, email, gender, referrer_point } = user // omit backlinks and author
 
-    return { id, title, first_name, middle_name, last_name, user_type, email, gender, referrer_point }
+    return { id, title, first_name, middle_name, last_name, email, gender, referrer_point }
   })
   jsonExport(
     postsForExport,
     {
-      headers: [
-        "id",
-        "title",
-        "first_name",
-        "middle_name",
-        "last_name",
-        "user_type",
-        "email",
-        "gender",
-        "referrer_point",
-      ], // order fields in the export
+      headers: ["id", "title", "first_name", "middle_name", "last_name", "email", "gender", "referrer_point"], // order fields in the export
     },
     (err: any, csv: any) => {
-      downloadCSV(csv, "Workfynder Users") // download as 'posts.csv` file
+      downloadCSV(csv, "Workfynder Artisans") // download as 'posts.csv` file
     },
   )
 }
-
-export const UserList = () => (
+export const ArtisanList = () => (
   <List exporter={exporter} perPage={15} filters={postFilters}>
     <Datagrid
       sx={{
@@ -67,7 +55,7 @@ export const UserList = () => (
       <TextField source="first_name" />
       <TextField source="middle_name" />
       <TextField source="last_name" />
-      <TextField source="user_type" />
+      {/* <TextField source="user_type" /> */}
       <EmailField source="email" />
       <TextField source="gender" />
       <TextField source="referrer_point" />

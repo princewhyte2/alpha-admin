@@ -21,7 +21,7 @@ import Avatar from "@mui/material/Avatar"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
 
-import { Title } from "react-admin"
+import { Title, useRedirect } from "react-admin"
 import { httpClient } from "../src/admin/dataprovider"
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -69,6 +69,7 @@ const getDashBoardInfo = async () => {
   return response.json.result
 }
 const Dashboard = () => {
+  const redirect = useRedirect()
   // const [data, setData] = React.useState([
   //   { name: "Jan", employer: 40, pv: 90, amt: 100 },
   //   { name: "Feb", employer: 70, pv: 50, amt: 2400 },
@@ -103,13 +104,13 @@ const Dashboard = () => {
     return finalData
   }, [data])
 
-  console.log("dashboard", computedProfile)
+  console.log("dashboard", data)
 
   return (
     <Container disableGutters sx={{ py: 4 }} maxWidth="xl">
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <Item>
+          <Item sx={{ cursor: "pointer" }} onClick={() => redirect("/jobs")}>
             <Stack direction="row" alignItems={"center"} justifyContent={"space-between"} spacing={2}>
               <Stack spacing={2}>
                 <Typography variant="h6" gutterBottom>
@@ -120,13 +121,13 @@ const Dashboard = () => {
                 </Typography>
               </Stack>
               <IconButton aria-label="work" size="large">
-                <WorkIcon fontSize="inherit" />
+                <WorkIcon fontSize="inherit" color="primary" />
               </IconButton>
             </Stack>
           </Item>
         </Grid>
         <Grid item xs={4}>
-          <Item>
+          <Item sx={{ cursor: "pointer" }} onClick={() => redirect("/artisans")}>
             <Stack direction="row" alignItems={"center"} justifyContent={"space-between"} spacing={2}>
               <Stack spacing={2}>
                 <Typography variant="h6" gutterBottom>
@@ -137,24 +138,24 @@ const Dashboard = () => {
                 </Typography>
               </Stack>
               <IconButton aria-label="work" size="large">
-                <GroupIcon fontSize="inherit" />
+                <GroupIcon fontSize="inherit" color="primary" />
               </IconButton>
             </Stack>
           </Item>
         </Grid>
         <Grid item xs={4}>
-          <Item>
+          <Item sx={{ cursor: "pointer" }} onClick={() => redirect("/employers")}>
             <Stack direction="row" alignItems={"center"} justifyContent={"space-between"} spacing={2}>
               <Stack spacing={2}>
                 <Typography variant="h6" gutterBottom>
                   Total Employers
                 </Typography>
                 <Typography variant="h3" gutterBottom>
-                  {data?.cardStats?.total_number_of_jobs}
+                  {data?.cardStats?.total_number_of_employers}
                 </Typography>
               </Stack>
               <IconButton aria-label="work" size="large">
-                <GroupsIcon fontSize="inherit" />
+                <GroupsIcon fontSize="inherit" color="primary" />
               </IconButton>
             </Stack>
           </Item>

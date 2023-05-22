@@ -10,6 +10,7 @@ import { useTheme, Theme } from "@mui/material/styles"
 import Button from "@mui/material/Button"
 import { Card, Chip, Typography, Box, Grid } from "@mui/material"
 // import TextField from "@mui/material/TextField"
+import { useNavigate } from "react-router-dom"
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace"
 import CloseIcon from "@mui/icons-material/Close"
 import DeleteIcon from "@mui/icons-material/Delete"
@@ -76,6 +77,7 @@ const UserShow = () => {
   const [isViewProjectInfo, setIsViewProjectInfo] = useState(false)
   const { id } = useParams() // this component is rendered in the /books/:id path
   const redirect = useRedirect()
+  const navigate = useNavigate()
 
   const handleViewImage = useCallback(
     (imageUrl: string) => () => {
@@ -138,7 +140,7 @@ const UserShow = () => {
                 spacing={1}
               >
                 <Box>
-                  <Button onClick={() => redirect("/users")} variant="outlined" startIcon={<KeyboardBackspaceIcon />}>
+                  <Button onClick={() => navigate(-1)} variant="outlined" startIcon={<KeyboardBackspaceIcon />}>
                     Users
                   </Button>
                 </Box>

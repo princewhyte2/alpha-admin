@@ -3,7 +3,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
-import { stringify } from "query-string";
 
 const BASE_URL = `https://backend-staging.workfynder.com/api`
 
@@ -17,8 +16,6 @@ export default async function handler (
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  console.log('token',token)
-
   const headers = {
     Authorization: token
   }
@@ -26,17 +23,13 @@ export default async function handler (
   switch (req.method) {
     case 'GET':
       try {
-              const query = {
-          shouldPaginate:'yes',          
-     ...req.query,
-    }
-        const response = await axios.get(`${BASE_URL}/referrals?${stringify(query)}`, { headers })
-        console.log('referrals', response.data.result)
-        res.setHeader('Content-Range', response.data?.result?.referrers.total)
-        return res.status(200).json(response.data.result?.referrers.data)
+        const response = await axios.get(`${BASE_URL}/users?user_type=employer`, { headers })
+        console.log('country', response.data)
+        res.setHeader('Content-Range', response.data?.result?.meta.total)
+        return res.status(200).json(response.data?.result?.data)
       } catch (err) {
         console.log(err)
-        res.status(500).json({ message: 'Error' })
+        res.status(403).json({ message: 'Error' })
       }
 
     case 'PUT':

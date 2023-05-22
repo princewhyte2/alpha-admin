@@ -10,7 +10,7 @@ import {
 } from "react-admin"
 
 export const SkillList = () => (
-  <List>
+  <List perPage={15}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <ReferenceField source="occupation_id" reference="occupations" />

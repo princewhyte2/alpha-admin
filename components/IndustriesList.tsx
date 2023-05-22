@@ -1,13 +1,13 @@
 import { EditButton, DeleteWithConfirmButton, Datagrid, DateField, List, NumberField, TextField } from "react-admin"
 
 export const IndustryList = () => (
-  <List>
+  <List perPage={15}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <TextField source="name" />
-      <NumberField source="status" />
-      <DateField source="created_at" />
-      <DateField source="updated_at" />
+      {/* <NumberField source="status" /> */}
+      <DateField label="Created date" source="created_at" />
+      <DateField label="Updated date" source="updated_at" />
       <EditButton />
       <DeleteWithConfirmButton />
     </Datagrid>

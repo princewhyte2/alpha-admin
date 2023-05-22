@@ -18,14 +18,18 @@ export const httpClient = (url: string, options: any = {}) => {
 // TypeScript users must reference the type `DataProvider`
 export const dataProvider = {
   getList: (resource: string, params: any) => {
-    // const { page, perPage } = params.pagination
-    // const { field, order } = params.sort
-    // const query = {
-    //   sort: JSON.stringify([field, order]),
-    //   range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-    //   filter: JSON.stringify(params.filter),
-    // }
-    const url = `${apiUrl}/${resource}`;
+    const { page, perPage } = params.pagination
+    const { field, order } = params.sort
+    const query = {
+      sort: JSON.stringify([field, order]),
+      // range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
+      limit: JSON.stringify(perPage),
+      page:JSON.stringify(page),
+      filter: JSON.stringify(params.filter),
+    }
+    const url = `${apiUrl}/${resource}?${stringify(query)}`;
+
+    console.log('the url',url)
 
     return httpClient(url).then(({ headers, json }) => {
       console.log("data", json);

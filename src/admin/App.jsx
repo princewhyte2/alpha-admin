@@ -6,7 +6,9 @@ import EngineeringIcon from "@mui/icons-material/Engineering"
 import FactoryIcon from "@mui/icons-material/Factory"
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory"
 import FlagIcon from "@mui/icons-material/Flag"
+import PersonSearchIcon from "@mui/icons-material/PersonSearch"
 import FeedIcon from "@mui/icons-material/Feed"
+import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied"
 import GroupAddIcon from "@mui/icons-material/GroupAdd"
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing"
 import { Admin, Resource, ListGuesser, defaultTheme, ShowGuesser, EditGuesser } from "react-admin"
@@ -30,6 +32,9 @@ import { SkillEdit } from "../../components/SkillEdit"
 import { SkillCreate } from "../../components/SkillCreate"
 import { IndustryEdit } from "../../components/IndustriesEdit"
 import { IndustryCreate } from "../../components/IndustryCreate"
+import { ArtisanList } from "../../components/ArtisanLists"
+import { EmployerList } from "../../components/EmployerList"
+import MyLoginPage from "../../components/MyLoginPage"
 
 const theme = {
   ...defaultTheme,
@@ -83,14 +88,37 @@ const myTheme = {
 }
 
 const App = () => (
-  <Admin theme={myTheme} dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider}>
+  <Admin
+    theme={myTheme}
+    layout={MyLayout}
+    loginPage={MyLoginPage}
+    dashboard={Dashboard}
+    authProvider={authProvider}
+    dataProvider={dataProvider}
+  >
     <Resource
-      icon={GroupsIcon}
+      icon={PersonSearchIcon}
       // create={ EditGuesser }
       name="users"
       // edit={ EditGuesser }
       show={UserShow}
       list={UserList}
+    />
+    <Resource
+      icon={GroupsIcon}
+      // create={ EditGuesser }
+      name="artisans"
+      // edit={ EditGuesser }
+      show={UserShow}
+      list={ArtisanList}
+    />{" "}
+    <Resource
+      icon={SensorOccupiedIcon}
+      // create={ EditGuesser }
+      name="employers"
+      // edit={ EditGuesser }
+      show={UserShow}
+      list={EmployerList}
     />
     <Resource
       icon={WorkHistoryIcon}

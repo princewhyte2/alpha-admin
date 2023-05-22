@@ -3,6 +3,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
+import { stringify } from "query-string"
 
 const BASE_URL = `https://backend-staging.workfynder.com/api`
 
@@ -23,13 +24,17 @@ export default async function handler (
   switch (req.method) {
     case 'GET':
       try {
-        const response = await axios.get(`${BASE_URL}/industries?shouldPaginate=yes`, { headers })
+        const query = {
+          shouldPaginate:"yes",
+          ...req.query,
+        }
+        const response = await axios.get(`${BASE_URL}/industries?${stringify(query)}`, { headers })
         console.log('response', response.data)
         res.setHeader('Content-Range', response.data?.result?.industries.total)
         return res.status(200).json(response.data?.result?.industries.data)
       } catch (err) {
         console.log(err)
-        res.status(403).json({ message: 'Error' })
+        res.status(503).json({ message: 'Error' })
       }
 
     case 'PUT':
