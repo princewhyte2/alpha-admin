@@ -3,7 +3,7 @@ import { fetchUtils } from "react-admin";
 import { stringify } from "query-string";
 
 // const apiUrl = "http://localhost:3000/api"
-const apiUrl = "https://alpha-admin-kappa.vercel.app/api"; 
+// const apiUrl = "https://alpha-admin-kappa.vercel.app/api"; 
 
 export const httpClient = (url: string, options: any = {}) => {
   if (!options.headers) {
@@ -27,7 +27,7 @@ export const dataProvider = {
       page:JSON.stringify(page),
       filter: JSON.stringify(params.filter),
     }
-    const url = `${apiUrl}/${resource}?${stringify(query)}`;
+    const url = `/api/${resource}?${stringify(query)}`;
 
     // console.log('the url',url)
 
@@ -45,7 +45,7 @@ export const dataProvider = {
   },
 
   getOne: (resource: string, params: any) =>
-    httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => {
+    httpClient(`/api/${resource}/${params.id}`).then(({ json }) => {
       console.log(`data ${resource} `, json);
       return {
         data: json,
@@ -56,7 +56,7 @@ export const dataProvider = {
     // const query = {
     //   filter: JSON.stringify({ id: params.ids }),
     // }
-    const url = `${apiUrl}/${resource}`;
+    const url = `/api/${resource}`;
     return httpClient(url).then(({ json }) => {
       // console.log("2", json);
       return { data: json };
@@ -74,7 +74,7 @@ export const dataProvider = {
         [params.target]: params.id,
       }),
     };
-    const url = `${apiUrl}/${resource}?${stringify(query)}`;
+    const url = `/api/${resource}?${stringify(query)}`;
 
     return httpClient(url).then(({ headers, json }) => {
       // console.log("3", json);
@@ -89,7 +89,7 @@ export const dataProvider = {
   },
 
   update: (resource: string, params: any) =>
-    httpClient(`${apiUrl}/${resource}/${params.id}`, {
+    httpClient(`/api/${resource}/${params.id}`, {
       method: "PUT",
       body: JSON.stringify(params.data),
     }).then(({ json }) => ({ data: json })),
@@ -98,14 +98,14 @@ export const dataProvider = {
     const query = {
       filter: JSON.stringify({ id: params.ids }),
     };
-    return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
+    return httpClient(`/api/${resource}?${stringify(query)}`, {
       method: "PUT",
       body: JSON.stringify(params.data),
     }).then(({ json }) => ({ data: json }));
   },
 
   create: (resource: string, params: any) =>
-    httpClient(`${apiUrl}/${resource}`, {
+    httpClient(`/api/${resource}`, {
       method: "POST",
       body: JSON.stringify(params.data),
     }).then(({ json }) => ({
@@ -113,7 +113,7 @@ export const dataProvider = {
     })),
 
   delete: (resource: string, params: any) =>
-    httpClient(`${apiUrl}/${resource}/${params.id}`, {
+    httpClient(`/api/${resource}/${params.id}`, {
       method: "DELETE",
     }).then(({ json }) => ({ data: json })),
 
@@ -121,7 +121,7 @@ export const dataProvider = {
     const query = {
       filter: JSON.stringify({ id: params.ids }),
     };
-    return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
+    return httpClient(`/api/${resource}?${stringify(query)}`, {
       method: "DELETE",
     }).then(({ json }) => ({ data: json }));
   },

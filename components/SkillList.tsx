@@ -15,9 +15,9 @@ export const SkillList = () => (
       <TextField source="id" />
       <ReferenceField source="occupation_id" reference="occupations" />
       <TextField source="name" />
-      <NumberField source="status" />
-      <DateField source="created_at" />
-      <DateField source="updated_at" />
+      {/* <NumberField source="status" /> */}
+      <DateField label="Created date" source="created_at" />
+      <DateField label="Updated date" source="updated_at" />
       <EditButton />
       <DeleteWithConfirmButton />
     </Datagrid>
