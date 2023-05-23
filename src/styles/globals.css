@@ -68,7 +68,7 @@ body {
 
 .RaList-main {
   background: #ffffff;
-  margin: 20px 0 0 0;
+  margin: 40px 0 0 0;
   padding: 16px;
 }
 body {
@@ -82,6 +82,12 @@ body {
   background: #3e4095;
 }
 
+.RaLayout-appFrame {
+  margin-top: 0px !important;
+}
+.RaLayout-appFrame > header {
+  display: none;
+}
 a {
   color: inherit;
   text-decoration: none;

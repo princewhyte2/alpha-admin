@@ -29,7 +29,7 @@ export const dataProvider = {
     }
     const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
-    console.log('the url',url)
+    // console.log('the url',url)
 
     return httpClient(url).then(({ headers, json }) => {
       console.log("data", json);
@@ -58,7 +58,7 @@ export const dataProvider = {
     // }
     const url = `${apiUrl}/${resource}`;
     return httpClient(url).then(({ json }) => {
-      console.log("2", json);
+      // console.log("2", json);
       return { data: json };
     });
   },
@@ -77,7 +77,7 @@ export const dataProvider = {
     const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
     return httpClient(url).then(({ headers, json }) => {
-      console.log("3", json);
+      // console.log("3", json);
       return {
         data: json.result.data,
         total: parseInt(

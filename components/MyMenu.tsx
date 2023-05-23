@@ -1,7 +1,7 @@
 import * as React from "react"
-import { Menu } from "react-admin"
+import { Menu, Logout } from "react-admin"
 import Box from "@mui/material/Box"
-
+import LogoutIcon from "@mui/icons-material/Logout"
 import BookIcon from "@mui/icons-material/Book"
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble"
 import PeopleIcon from "@mui/icons-material/People"
@@ -16,6 +16,17 @@ import FeedIcon from "@mui/icons-material/Feed"
 import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied"
 import GroupAddIcon from "@mui/icons-material/GroupAdd"
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing"
+
+const MyLogoutButton = (props: any) => (
+  <Logout
+    {...props}
+    title="Logout"
+    sx={{ color: "#B3261E", marginTop: "40px" }}
+    tex
+    icon={<LogoutIcon color="error" />}
+  />
+)
+
 export const MyMenu = () => (
   <Menu sx={{ borderColor: "#3E4095" }}>
     <Box sx={{ height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -68,5 +79,6 @@ export const MyMenu = () => (
       primaryText="Referrals"
       leftIcon={<GroupAddIcon color="primary" />}
     />
+    <MyLogoutButton />
   </Menu>
 )
