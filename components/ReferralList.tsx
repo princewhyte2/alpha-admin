@@ -10,6 +10,7 @@ import {
 } from "react-admin"
 
 import jsonExport from "jsonexport/dist"
+import { PostPagination } from "./OccupationsList"
 const exporter = (users: any) => {
   const postsForExport = users.map((ref: any) => {
     const { id, created_at, user, referred_by } = ref // omit backlinks and author
@@ -49,8 +50,8 @@ const exporter = (users: any) => {
 }
 
 export const ReferralList = () => (
-  <List exporter={exporter} perPage={15}>
-    <Datagrid rowClick="edit">
+  <List pagination={<PostPagination />} exporter={exporter} perPage={15}>
+    <Datagrid bulkActionButtons={false} rowClick="edit">
       <TextField source="id" />
       {/* <BooleanField source="claimed" /> */}
       <DateField label="Created date" source="created_at" />

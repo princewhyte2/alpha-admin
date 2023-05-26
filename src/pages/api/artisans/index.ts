@@ -22,9 +22,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
           user_type: "artisan",
           ...req.query,
         }
-        // console.log("artisan query", req.query.filter)
+        // console.log("artisan query", req.query)
         const response = await axios.get(`${BASE_URL}/users?${stringify(query)}`, { headers })
-        console.log("country", response.data)
+        // console.log("country", response.data)
         res.setHeader("Content-Range", response.data?.result?.meta.total)
         return res.status(200).json(response.data?.result?.data)
       } catch (err) {

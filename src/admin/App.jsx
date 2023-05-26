@@ -10,8 +10,9 @@ import PersonSearchIcon from "@mui/icons-material/PersonSearch"
 import FeedIcon from "@mui/icons-material/Feed"
 import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied"
 import GroupAddIcon from "@mui/icons-material/GroupAdd"
+import { Route } from "react-router-dom"
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing"
-import { Admin, Resource, ListGuesser, defaultTheme, ShowGuesser, EditGuesser } from "react-admin"
+import { Admin, Resource, ListGuesser, defaultTheme, ShowGuesser, EditGuesser, CustomRoutes } from "react-admin"
 import { authProvider } from "./authprovider"
 import { OccupationList } from "../../components/OccupationsList"
 import { IndustryList } from "../../components/IndustriesList"
@@ -35,6 +36,9 @@ import { IndustryCreate } from "../../components/IndustryCreate"
 import { ArtisanList } from "../../components/ArtisanLists"
 import { EmployerList } from "../../components/EmployerList"
 import MyLoginPage from "../../components/MyLoginPage"
+import AdminProfile from "../../components/Adminprofile"
+import ChangePassword from "../../components/ChangePassword"
+import CreatePost from "../../components/CreatePost"
 
 const theme = {
   ...defaultTheme,
@@ -119,6 +123,8 @@ const App = () => (
       // edit={ EditGuesser }
       show={UserShow}
       list={EmployerList}
+      recordRepresentation={(record) => `${record.relationships.company?.name}`}
+      // recordRepresentation={"relationships.company?.name"}
     />
     <Resource
       icon={WorkHistoryIcon}
@@ -128,26 +134,36 @@ const App = () => (
       name="jobs"
       list={JobList}
     />
-    <Resource icon={FeedIcon} name="posts" list={PostList} show={PostShow} />
+    <Resource icon={FeedIcon} create={CreatePost} name="posts" list={PostList} show={PostShow} />
     <Resource
       icon={EngineeringIcon}
       name="occupations"
       list={OccupationList}
       edit={OccupationEdit}
-      create={OccupationCreate}
+      // create={OccupationCreate}
       recordRepresentation={"name"}
     />
     <Resource
       icon={FactoryIcon}
       name="industries"
       edit={IndustryEdit}
-      create={IndustryCreate}
+      // create={IndustryCreate}
       list={IndustryList}
       recordRepresentation={"name"}
     />
-    <Resource icon={PrecisionManufacturingIcon} edit={SkillEdit} create={SkillCreate} name="skills" list={SkillList} />
+    <Resource
+      icon={PrecisionManufacturingIcon}
+      edit={SkillEdit}
+      // create={ SkillCreate }
+      name="skills"
+      list={SkillList}
+    />
     <Resource icon={GroupAddIcon} name="referrals" list={ReferralList} />
     <Resource icon={FlagIcon} name="countries" list={CountryList} />
+    <CustomRoutes>
+      <Route path="/password" element={<ChangePassword />} />
+      <Route path="/profile" element={<AdminProfile />} />
+    </CustomRoutes>
     {/* <Resource name="projects" list={ListGuesser} /> */}
   </Admin>
 )

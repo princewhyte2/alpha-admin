@@ -114,7 +114,7 @@ const UserShow = () => {
 
   const { data, isLoading } = useGetOne(
     "users",
-    { id },
+    { id: 1 },
     // redirect to the list if the book is not found
     { onError: () => redirect("/users") },
   )

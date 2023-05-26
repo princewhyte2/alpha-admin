@@ -16,11 +16,13 @@ import {
 } from "react-admin"
 import jsonExport from "jsonexport/dist"
 import { Stack } from "@mui/material"
+import { PostPagination } from "./OccupationsList"
 const postFilters = [
   // <TextInput key="q" label="Search" source="q" alwaysOn />,
-  <TextInput key="type" label="User Type" source="user_type" defaultValue="artisan" />,
+  <TextInput key="user_type" label="User Type" source="user_type" defaultValue="artisan" />,
   <TextInput key="title" label="Title" source="title" />,
   <TextInput key="gender" label="Gender" source="gender" />,
+  <TextInput key="email" label="Email" source="email" />,
 ]
 
 const exporter = (users: any) => {
@@ -51,8 +53,9 @@ const exporter = (users: any) => {
 }
 
 export const UserList = () => (
-  <List exporter={exporter} perPage={15} filters={postFilters}>
+  <List pagination={<PostPagination />} exporter={exporter} perPage={15} filters={postFilters}>
     <Datagrid
+      bulkActionButtons={false}
       sx={{
         // backgroundColor: "Lavender",
         "& .RaDatagrid-headerCell": {

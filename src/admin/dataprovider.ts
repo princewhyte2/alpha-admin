@@ -25,11 +25,12 @@ export const dataProvider = {
       // range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
       limit: JSON.stringify(perPage),
       page:JSON.stringify(page),
-      filter: JSON.stringify(params.filter),
+      // filter: JSON.stringify(params.filter),
+      ...params.filter
     }
     const url = `/api/${resource}?${stringify(query)}`;
 
-    // console.log('the url',url)
+    console.log('the url',url)
 
     return httpClient(url).then(({ headers, json }) => {
       console.log("data", json);

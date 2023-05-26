@@ -16,11 +16,13 @@ import {
 } from "react-admin"
 import { Stack } from "@mui/material"
 import jsonExport from "jsonexport/dist"
+import { PostPagination } from "./OccupationsList"
 const postFilters = [
   // <TextInput key="q" label="Search" source="q" alwaysOn />,
   // <TextInput key="type" label="User Type" source="user_type" defaultValue="artisan" />,
   <TextInput key="title" label="Title" source="title" />,
   <TextInput key="gender" label="Gender" source="gender" />,
+  <TextInput key="email" label="Email" source="email" />,
 ]
 
 const exporter = (users: any) => {
@@ -59,22 +61,17 @@ const exporter = (users: any) => {
 }
 
 export const EmployerList = () => (
-  <List exporter={exporter} perPage={15} filters={postFilters}>
+  <List pagination={<PostPagination />} exporter={exporter} perPage={15} filters={postFilters}>
     <Datagrid
-      sx={{
-        // backgroundColor: "Lavender",
-        "& .RaDatagrid-headerCell": {
-          backgroundColor: "#3E4095",
-          color: "white",
-        },
-      }}
+      bulkActionButtons={false}
+
       // rowClick="edit"
     >
       <TextField source="id" />
-      <TextField label="Company Name" source="relationships.company.name" />
-      <TextField label="Industry" source="relationships.company.business_sector.name" />
+      <TextField label="Company Name" source="relationships.company?.name" />
+      <TextField label="Industry" source="relationships.company?.business_sector.name" />
       {/* <TextField source="title" /> */}
-      <EmailField label="Company email" source="relationships.company.email" />
+      <EmailField label="Company email" source="relationships.company?.email" />
       <TextField label="Owners first name" source="first_name" />
       <TextField label="Owners middle name" source="middle_name" />
       <TextField label="Owners last name" source="last_name" />

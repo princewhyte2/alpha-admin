@@ -1,5 +1,17 @@
-import { TextInput, Datagrid, DateField, List, NumberField, ShowButton, TextField, downloadCSV } from "react-admin"
+import {
+  TextInput,
+  Datagrid,
+  DateField,
+  List,
+  DeleteWithConfirmButton,
+  ShowButton,
+  TextField,
+  downloadCSV,
+  DateInput,
+  ReferenceInput,
+} from "react-admin"
 import jsonExport from "jsonexport/dist"
+import { PostPagination } from "./OccupationsList"
 
 const exporter = (users: any) => {
   const postsForExport = users.map((user: any) => {
@@ -38,17 +50,18 @@ const exporter = (users: any) => {
 }
 
 const postFilters = [
-  // <TextInput key="q" label="Search" source="q" alwaysOn />,
+  <TextInput key="searchTerm" label="Search" source="q" alwaysOn />,
   // <TextInput key="type" label="User Type" source="user_type" defaultValue="artisan" />,
-  <TextInput key="occupation" label="Occupation" source="occupation.name" />,
+  <ReferenceInput key="occupation_id" label="Occupation" source="occupation.id" reference="occupations" />,
   <TextInput key="location" label="location" source="location" />,
-  <TextInput key="company" label="company" source="company.name" />,
-  <TextInput key="closing_at" label="closing date" source="closing_at" />,
+  <ReferenceInput key="company_id" label="company" source="company.id" reference="employers" />,
+  // <ReferenceInput source="company_id" reference="companies" />
+  <DateInput key="closing_at_from_date" label="closing date" source="closing_at" />,
 ]
 
 export const JobList = () => (
-  <List exporter={exporter} filters={postFilters} perPage={15}>
-    <Datagrid>
+  <List pagination={<PostPagination />} exporter={exporter} filters={postFilters} perPage={15}>
+    <Datagrid bulkActionButtons={false}>
       <TextField source="id" />
       {/* <ReferenceField source="company_id" reference="companies" /> */}
       {/* <NumberField source="posted_by.id" /> */}
@@ -73,6 +86,7 @@ export const JobList = () => (
       {/* <NumberField source="occupation.id" /> */}
 
       <ShowButton />
+      <DeleteWithConfirmButton />
     </Datagrid>
   </List>
 )
