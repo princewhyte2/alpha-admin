@@ -13,8 +13,8 @@ export const OccupationCreate = () => {
       <SimpleForm>
         {/* <TextInput source="id" /> */}
         <TextInput source="name" />
-        <TextInput source="description" />
-        <NumberInput source="active" />
+        {/* <TextInput source="description" />
+        <NumberInput source="active" /> */}
         <ReferenceInput source="industry_id" reference="industries" />
       </SimpleForm>
     </Create>

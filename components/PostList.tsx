@@ -13,6 +13,7 @@ import {
   DateInput,
 } from "react-admin"
 import jsonExport from "jsonexport/dist"
+import { MyList } from "./ArtisanLists"
 import { PostPagination } from "./OccupationsList"
 
 const exporter = (users: any) => {
@@ -50,7 +51,7 @@ const postFilters = [
 ]
 
 export const PostList = () => (
-  <List pagination={<PostPagination />} exporter={exporter} filters={postFilters} perPage={15}>
+  <MyList title="Posts" isCreate exporter={exporter} filters={postFilters} perPage={15}>
     <Datagrid bulkActionButtons={false}>
       <TextField source="id" />
       <TextField label="First Name" source="relationships.created_by.first_name" />
@@ -67,5 +68,5 @@ export const PostList = () => (
         </SingleFieldList>
       </ArrayField> */}
     </Datagrid>
-  </List>
+  </MyList>
 )

@@ -44,6 +44,16 @@ export default async function handler (
     case 'POST':
       // Handle POST request
       // ...
+       try {
+        
+        const response = await axios.put(`${BASE_URL}/occupations`, {industry_id:req.body.industry_id,name:req.body.name },{ headers })
+        console.log('occupation', response.data)
+       
+        return res.status(200).json(response.data.result.occupation)
+      } catch (err) {
+        console.log(err)
+        res.status(503).json({ message: 'Error' })
+      }
       break
     default:
       res.status(405).json({ message: 'Method Not Allowed' })

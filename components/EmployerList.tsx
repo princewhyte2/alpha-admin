@@ -16,6 +16,7 @@ import {
 } from "react-admin"
 import { Stack } from "@mui/material"
 import jsonExport from "jsonexport/dist"
+import { MyList } from "./ArtisanLists"
 import { PostPagination } from "./OccupationsList"
 const postFilters = [
   // <TextInput key="q" label="Search" source="q" alwaysOn />,
@@ -61,7 +62,7 @@ const exporter = (users: any) => {
 }
 
 export const EmployerList = () => (
-  <List pagination={<PostPagination />} exporter={exporter} perPage={15} filters={postFilters}>
+  <MyList title="Employers" exporter={exporter} perPage={15} filters={postFilters}>
     <Datagrid
       bulkActionButtons={false}
 
@@ -94,5 +95,5 @@ export const EmployerList = () => (
       <BooleanField source="has_created_company" />
       <NumberField source="relationships.total_connections" /> */}
     </Datagrid>
-  </List>
+  </MyList>
 )

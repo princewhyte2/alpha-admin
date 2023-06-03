@@ -11,7 +11,7 @@ export const IndustryCreate = () => {
       <SimpleForm>
         {/* <TextInput source="id" /> */}
         <TextInput source="name" />
-        <NumberInput source="status" />
+        {/* <NumberInput source="status" /> */}
         {/* <DateInput source="created_at" />
       <DateInput source="updated_at" /> */}
       </SimpleForm>

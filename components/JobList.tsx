@@ -10,6 +10,7 @@ import {
   DateInput,
   ReferenceInput,
 } from "react-admin"
+import { MyList } from "./ArtisanLists"
 import jsonExport from "jsonexport/dist"
 import { PostPagination } from "./OccupationsList"
 
@@ -50,17 +51,17 @@ const exporter = (users: any) => {
 }
 
 const postFilters = [
-  <TextInput key="searchTerm" label="Search" source="q" alwaysOn />,
+  <TextInput key="searchTerm" label="Search " source="searchTerm" alwaysOn />,
   // <TextInput key="type" label="User Type" source="user_type" defaultValue="artisan" />,
-  <ReferenceInput key="occupation_id" label="Occupation" source="occupation.id" reference="occupations" />,
+  <ReferenceInput key="occupation_id" label="Occupation" source="occupation_id" reference="occupations" />,
   <TextInput key="location" label="location" source="location" />,
-  <ReferenceInput key="company_id" label="company" source="company.id" reference="employers" />,
+  <ReferenceInput key="company_id" label="company" source="company_id" reference="employers" />,
   // <ReferenceInput source="company_id" reference="companies" />
   <DateInput key="closing_at_from_date" label="closing date" source="closing_at" />,
 ]
 
 export const JobList = () => (
-  <List pagination={<PostPagination />} exporter={exporter} filters={postFilters} perPage={15}>
+  <MyList title="Jobs" exporter={exporter} filters={postFilters} perPage={15}>
     <Datagrid bulkActionButtons={false}>
       <TextField source="id" />
       {/* <ReferenceField source="company_id" reference="companies" /> */}
@@ -88,5 +89,5 @@ export const JobList = () => (
       <ShowButton />
       <DeleteWithConfirmButton />
     </Datagrid>
-  </List>
+  </MyList>
 )

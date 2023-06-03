@@ -12,7 +12,7 @@ export const SkillCreate = () => {
         {/* <TextInput source="id" /> */}
         <ReferenceInput source="occupation_id" reference="occupations" />
         <TextInput source="name" />
-        <NumberInput source="status" />
+        {/* <NumberInput source="status" /> */}
         {/* <DateInput source="created_at" />
         <DateInput source="updated_at" /> */}
       </SimpleForm>

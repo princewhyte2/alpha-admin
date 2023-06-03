@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useGetOne, useRedirect, Title } from "react-admin"
+import { useGetOne, useRedirect, Title, Confirm, useNotify } from "react-admin"
 import Tooltip from "@mui/material/Tooltip"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import IconButton from "@mui/material/IconButton"
@@ -26,6 +26,9 @@ import Stack from "@mui/material/Stack"
 import { styled } from "@mui/material/styles"
 import AddIcon from "@mui/icons-material/Add"
 import { useCallback, useState } from "react"
+import AppBlockingIcon from "@mui/icons-material/AppBlocking"
+import ApprovalIcon from "@mui/icons-material/Approval"
+import axiosInstance from "../services/instance"
 
 /**
  * Fetch a book from the API and display it
@@ -71,13 +74,27 @@ function BootstrapDialogTitle(props: any) {
   )
 }
 
+const activateUser = async (userId: string) => {
+  const response = await axiosInstance.patch(`/reactivate/user/${userId}`)
+  return response.data
+}
+
+const deactivateUser = async (userId: string) => {
+  const response = await axiosInstance.delete(`/deactivate/user/${userId}`)
+  return response.data
+}
+
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 const UserShow = () => {
   const [projectData, setProjectData] = useState<any>()
   const [isViewProjectInfo, setIsViewProjectInfo] = useState(false)
+  const [isActivating, setIsActivating] = useState(false)
+  const [isDeactivate, setIsDeactivate] = useState(false)
+  const [open, setOpen] = useState(false)
   const { id } = useParams() // this component is rendered in the /books/:id path
   const redirect = useRedirect()
   const navigate = useNavigate()
+  const notify = useNotify()
 
   const handleViewImage = useCallback(
     (imageUrl: string) => () => {
@@ -112,9 +129,35 @@ const UserShow = () => {
     setProjectData(undefined)
   }, [])
 
+  const handleConfirm = async () => {
+    setIsActivating(true)
+    try {
+      if (isDeactivate) {
+        await deactivateUser(id as string)
+      } else {
+        await activateUser(id as string)
+      }
+      setIsActivating(false)
+      setOpen(false)
+      redirect("/users")
+    } catch (error: any) {
+      if (error.response) {
+        notify(error.response.data.message)
+      } else if (error.request) {
+        //console.log(error.request)
+      } else {
+        //console.log("Error", error.message)
+      }
+      console.log(error)
+      setIsActivating(false)
+      setOpen(false)
+      // redirect("/users")
+    }
+  }
+
   const { data, isLoading } = useGetOne(
     "users",
-    { id: 1 },
+    { id },
     // redirect to the list if the book is not found
     { onError: () => redirect("/users") },
   )
@@ -125,6 +168,7 @@ const UserShow = () => {
       </Typography>
     )
   }
+
   return (
     <div>
       <Title title="User Profile" />
@@ -149,12 +193,46 @@ const UserShow = () => {
                 {data?.user_type === "employer" ? (
                   <>
                     <Grid item md={3}>
-                      <Avatar
-                        onClick={handleViewImage(data?.relationships?.company?.logo_image?.url)}
-                        sx={{ width: "140px", height: "140px" }}
-                        alt={`richard`}
-                        src={data?.relationships?.company?.logo_image?.url}
-                      />
+                      <Stack direction={"column"} spacing={3}>
+                        <Avatar
+                          onClick={handleViewImage(data?.relationships?.company?.logo_image?.url)}
+                          sx={{ width: "140px", height: "140px" }}
+                          alt={`richard`}
+                          src={data?.relationships?.company?.logo_image?.url}
+                        />
+                        <Stack direction={"row"} spacing={3}>
+                          <Button
+                            onClick={() => {
+                              setIsDeactivate(false)
+                              setOpen(true)
+                            }}
+                            color="success"
+                            variant="contained"
+                            startIcon={<ApprovalIcon />}
+                          >
+                            Activate
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              setIsDeactivate(true)
+                              setOpen(true)
+                            }}
+                            color="error"
+                            variant="contained"
+                            startIcon={<AppBlockingIcon />}
+                          >
+                            Deactivate
+                          </Button>
+                          <Confirm
+                            isOpen={open}
+                            loading={isActivating}
+                            title={`${isDeactivate ? "Deactivate" : "Activate"} User #${id}`}
+                            content={`Are you sure you want to ${isDeactivate ? "deactivate" : "activate"} this user?`}
+                            onConfirm={handleConfirm}
+                            onClose={() => setOpen(false)}
+                          />
+                        </Stack>
+                      </Stack>
                     </Grid>
                     <Grid item xs={12} md={9}>
                       <>
@@ -324,6 +402,38 @@ const UserShow = () => {
                           <Typography sx={{ color: "primary.dark", fontSize: { xs: 14, md: 16 } }} variant="h6">
                             {data?.relationships?.state?.name} {data?.relationships?.country?.name}
                           </Typography>
+                        </Stack>
+                        <Stack direction={"column"} spacing={3}>
+                          <Button
+                            onClick={() => {
+                              setIsDeactivate(false)
+                              setOpen(true)
+                            }}
+                            color="success"
+                            variant="contained"
+                            startIcon={<ApprovalIcon />}
+                          >
+                            Activate
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              setIsDeactivate(true)
+                              setOpen(true)
+                            }}
+                            color="error"
+                            variant="contained"
+                            startIcon={<AppBlockingIcon />}
+                          >
+                            Deactivate
+                          </Button>
+                          <Confirm
+                            isOpen={open}
+                            loading={isActivating}
+                            title={`${isDeactivate ? "Deactivate" : "Activate"} User #${id}`}
+                            content={`Are you sure you want to ${isDeactivate ? "deactivate" : "activate"} this user?`}
+                            onConfirm={handleConfirm}
+                            onClose={() => setOpen(false)}
+                          />
                         </Stack>
                       </Stack>
                     </Box>

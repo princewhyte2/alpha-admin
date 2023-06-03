@@ -9,6 +9,7 @@ import {
   TextInput,
   ReferenceInput,
 } from "react-admin"
+import { MyList } from "./ArtisanLists"
 
 const postFilters = [
   // <TextInput key="q" label="Search" source="q" alwaysOn />,
@@ -20,15 +21,15 @@ const postFilters = [
 ]
 export const PostPagination = () => <Pagination rowsPerPageOptions={[15]} />
 export const OccupationList = () => (
-  <List pagination={<PostPagination />} perPage={15} filters={postFilters}>
+  <MyList title="Occupations" perPage={15} filters={postFilters}>
     <Datagrid bulkActionButtons={false} rowClick="edit">
       {/* <TextField source="id" /> */}
       <TextField source="name" />
       {/* <TextField source="description" /> */}
       {/* <NumberField source="active" /> */}
       <ReferenceField source="industry_id" reference="industries" />
-      {/* <EditButton />
-      <DeleteWithConfirmButton /> */}
+      <EditButton />
+      {/* <DeleteWithConfirmButton /> */}
     </Datagrid>
-  </List>
+  </MyList>
 )

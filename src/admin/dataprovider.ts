@@ -30,7 +30,7 @@ export const dataProvider = {
     }
     const url = `/api/${resource}?${stringify(query)}`;
 
-    console.log('the url',url)
+    console.log('the url',params.filter)
 
     return httpClient(url).then(({ headers, json }) => {
       console.log("data", json);

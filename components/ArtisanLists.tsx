@@ -13,9 +13,17 @@ import {
   FilterForm,
   FilterButton,
   downloadCSV,
+  ListBase,
+  Title,
+  ListToolbar,
+  Pagination,
+  TopToolbar,
+  ExportButton,
 } from "react-admin"
 import { Stack } from "@mui/material"
+import Typography from "@mui/material/Typography"
 import jsonExport from "jsonexport/dist"
+import { Card } from "@mui/material"
 import { PostPagination } from "./OccupationsList"
 const postFilters = [
   // <TextInput key="q" label="Search" source="q" alwaysOn />,
@@ -40,8 +48,33 @@ const exporter = (users: any) => {
     },
   )
 }
+const ListActions = ({ isCreate }: any) => (
+  <TopToolbar>
+    <FilterButton />
+    {isCreate && <CreateButton />}
+    <ExportButton />
+    {/* Add your custom actions */}
+  </TopToolbar>
+)
+export const MyList = ({ isCreate = false, children, actions, filters, title, ...props }: any) => (
+  <div className="RaList-main">
+    <ListBase {...props}>
+      <Typography variant="h6" gutterBottom>
+        {title}
+      </Typography>
+      {/* <Title title={title} /> */}
+      <ListToolbar filters={filters} actions={<ListActions isCreate={isCreate} />} />
+      <Card>{children}</Card>
+      <PostPagination />
+      {/* <Pagination /> */}
+    </ListBase>
+  </div>
+)
+// sx={{ background: "#ffffff", margin: "40px 0 0 0", padding: "16px" }}
 export const ArtisanList = () => (
-  <List pagination={<PostPagination />} exporter={exporter} perPage={15} filters={postFilters}>
+  // <List pagination={<PostPagination />} exporter={exporter} perPage={15} filters={postFilters}>
+
+  <MyList title={"Artisans"} exporter={exporter} perPage={15} filters={postFilters}>
     <Datagrid
       bulkActionButtons={false}
       sx={{
@@ -78,5 +111,6 @@ export const ArtisanList = () => (
       <BooleanField source="has_created_company" />
       <NumberField source="relationships.total_connections" /> */}
     </Datagrid>
-  </List>
+  </MyList>
+  // </List>
 )

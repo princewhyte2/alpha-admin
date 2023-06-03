@@ -100,7 +100,7 @@ const PostShow = () => {
     // redirect to the list if the book is not found
     { onError: () => redirect("/posts") },
   )
-  console.log("info post", data)
+  // console.log("info post", data)
   if (isLoading) {
     return (
       <Typography variant="caption" display="block">

@@ -21,25 +21,45 @@ export default async function handler (
   }
 
   switch (req.method) {
-    // case 'GET':
-    //   try {
-    //      const { id } = req.query
-    //     const response = await axios.get(`${BASE_URL}/occupations/${id}`, { headers })
-    //     console.log('occupation', response.data)
+    case 'GET':
+      try {
+         const { id } = req.query
+        const response = await axios.get(`${BASE_URL}/industries/${id}`, { headers })
+        console.log('industries', response.data)
        
-    //     return res.status(200).json(response.data?.result?.occupations.data)
-    //   } catch (err) {
-    //     console.log(err)
-    //     res.status(503).json({ message: 'Error' })
-    //   }
+        return res.status(200).json(response.data.result.industries)
+      } catch (err) {
+        console.log(err)
+        res.status(503).json({ message: 'Error' })
+      }
 
     case 'PUT':
       // Handle PUT request
       // ...
+       try {
+         const { id } = req.query
+        const response = await axios.patch(`${BASE_URL}/industries/${id}`, { name:req.body.name },{ headers })
+        console.log('industries', response.data)
+       
+        return res.status(200).json(response.data.result.industries)
+      } catch (err) {
+        console.log(err)
+        res.status(503).json({ message: 'Error' })
+      }
       break
-    case 'POST':
+    case 'DELETE':
       // Handle POST request
       // ...
+       try {
+         const { id } = req.query
+        const response = await axios.delete(`${BASE_URL}/industries/${id}`,{ headers })
+        console.log('industries', response.data)
+       
+        return res.status(200).json('resource deleted')
+      } catch (err) {
+        console.log(err)
+        res.status(503).json({ message: 'Error' })
+      }
       break
     default:
       res.status(405).json({ message: 'Method Not Allowed' })
