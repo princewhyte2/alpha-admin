@@ -33,6 +33,16 @@ const updatePassword = async (data: any) => {
   return response.data
 }
 
+const updateUserProfile = async (userId: any, data: any) => {
+  const response = await axiosInstance.patch(`/admins/${userId}`, data)
+  return response.data
+}
+
+const getUserProfile = async () => {
+  const response = await axiosInstance.get("/my/profile")
+  return response.data.result
+}
+
 function ChangePassword() {
   const router = useNavigate()
   const notify = useNotify()
@@ -43,8 +53,7 @@ function ChangePassword() {
   const [message, setMessage] = useState("An error occured")
   const [isError, setIsError] = useState(false)
   const [type, setType] = useState<AlertColor>("error")
-
-  const { data: userSecurityQuestion } = useSWR("userSecurityQuestions", getUserSecurityQuestions, {
+  const { data: appUser } = useSWR("userProfile", getUserProfile, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -61,26 +70,26 @@ function ChangePassword() {
       e.preventDefault()
 
       if (newPasswordRef.current?.value !== confirmPasswordRef.current?.value) {
-        setMessage("New password don't match")
-        setType("error")
-        setIsError(true)
+        notify("New password don't match")
+
         return
       }
 
       const data = {
-        answer: answerRef.current?.value,
-        current_password: passwordRef.current?.value,
-        new_password: newPasswordRef.current?.value,
-        confirm_password: confirmPasswordRef.current?.value,
+        // answer: answerRef.current?.value,
+        // current_password: passwordRef.current?.value,
+        password: newPasswordRef.current?.value,
+        // confirm_password: confirmPasswordRef.current?.value,
       }
 
       setIsLoading(true)
 
       try {
-        const response = await updatePassword(data)
+        const response = await updateUserProfile(appUser?.id, data)
         // router.replace("/auth/login")
         notify(response?.message)
-        await authProvider.logout()
+        localStorage.removeItem("authToken")
+        router("/")
       } catch (error: any) {
         setType("error")
         if (error.response) {
@@ -110,128 +119,128 @@ function ChangePassword() {
         <Typography variant="body2" sx={{ my: 1, color: "primary.dark" }}>
           Please provide your current password and choose a new password.
         </Typography>
-        {userSecurityQuestion?.question ? (
-          <Box
-            component="form"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              maxWidth: "29.68rem",
-              width: "100%",
+        {/* {userSecurityQuestion?.question ? ( */}
+        <Box
+          component="form"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            maxWidth: "29.68rem",
+            width: "100%",
+          }}
+          onSubmit={handleUpdatePassword}
+        >
+          <FormControl required sx={{ m: 1, width: "100%" }} variant="outlined">
+            <InputLabel htmlFor="outlined-security-password">Current Password</InputLabel>
+            <OutlinedInput
+              id="outlined-security-password"
+              type={showPassword ? "text" : "password"}
+              inputRef={passwordRef}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? (
+                      <VisibilityOff sx={{ color: "primary.dark" }} />
+                    ) : (
+                      <Visibility sx={{ color: "primary.dark" }} />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Current Password"
+            />
+          </FormControl>
+          <TextField
+            inputRef={newPasswordRef}
+            margin="dense"
+            required
+            fullWidth
+            type={showPassword ? "text" : "password"}
+            id="confirm-security-password-reset"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle confirm password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? (
+                      <VisibilityOff sx={{ color: "primary.dark" }} />
+                    ) : (
+                      <Visibility sx={{ color: "primary.dark" }} />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
             }}
-            onSubmit={handleUpdatePassword}
+            label="New Password"
+            variant="outlined"
+          />
+          <TextField
+            inputRef={confirmPasswordRef}
+            margin="dense"
+            required
+            fullWidth
+            type={showPassword ? "text" : "password"}
+            id="confirm-password-reset"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle confirm password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? (
+                      <VisibilityOff sx={{ color: "primary.dark" }} />
+                    ) : (
+                      <Visibility sx={{ color: "primary.dark" }} />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            label="Confirm New Password"
+            variant="outlined"
+          />
+
+          {/* <TextField
+            fullWidth
+            id="security-title-question"
+            label={userSecurityQuestion?.question?.question}
+            placeholder="Answer"
+            variant="outlined"
+            required
+            defaultValue={projectData?.title || ""}
+            inputRef={answerRef}
+            sx={{ my: "1rem" }}
+          />
+          <Link
+            href="https://www.workfynder.com/auth/forgot-password"
+            sx={{ my: 1, color: "primary.main", alignSelf: "flex-start" }}
           >
-            <FormControl required sx={{ m: 1, width: "100%" }} variant="outlined">
-              <InputLabel htmlFor="outlined-security-password">Current Password</InputLabel>
-              <OutlinedInput
-                id="outlined-security-password"
-                type={showPassword ? "text" : "password"}
-                inputRef={passwordRef}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => setShowPassword(!showPassword)}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? (
-                        <VisibilityOff sx={{ color: "primary.dark" }} />
-                      ) : (
-                        <Visibility sx={{ color: "primary.dark" }} />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Current Password"
-              />
-            </FormControl>
-            <TextField
-              inputRef={newPasswordRef}
-              margin="dense"
-              required
-              fullWidth
-              type={showPassword ? "text" : "password"}
-              id="confirm-security-password-reset"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle confirm password visibility"
-                      onClick={() => setShowPassword(!showPassword)}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? (
-                        <VisibilityOff sx={{ color: "primary.dark" }} />
-                      ) : (
-                        <Visibility sx={{ color: "primary.dark" }} />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              label="New Password"
-              variant="outlined"
-            />
-            <TextField
-              inputRef={confirmPasswordRef}
-              margin="dense"
-              required
-              fullWidth
-              type={showPassword ? "text" : "password"}
-              id="confirm-password-reset"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle confirm password visibility"
-                      onClick={() => setShowPassword(!showPassword)}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? (
-                        <VisibilityOff sx={{ color: "primary.dark" }} />
-                      ) : (
-                        <Visibility sx={{ color: "primary.dark" }} />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              label="Confirm New Password"
-              variant="outlined"
-            />
+            Can’t remember my password.
+          </Link> */}
 
-            <TextField
-              fullWidth
-              id="security-title-question"
-              label={userSecurityQuestion?.question?.question}
-              placeholder="Answer"
-              variant="outlined"
-              required
-              // defaultValue={projectData?.title || ""}
-              inputRef={answerRef}
-              sx={{ my: "1rem" }}
-            />
-            <Link
-              href="https://www.workfynder.com/auth/forgot-password"
-              sx={{ my: 1, color: "primary.main", alignSelf: "flex-start" }}
-            >
-              Can’t remember my password.
-            </Link>
-
-            <Button
-              disabled={isLoading}
-              type="submit"
-              sx={{ maxWidth: "25rem", my: 4, width: { xs: "100%", md: "229px" }, alignSelf: "flex-end" }}
-              variant="contained"
-            >
-              Save Changes
-            </Button>
-          </Box>
-        ) : (
+          <Button
+            disabled={isLoading}
+            type="submit"
+            sx={{ maxWidth: "25rem", my: 4, width: { xs: "100%", md: "229px" }, alignSelf: "flex-end" }}
+            variant="contained"
+          >
+            Save Changes
+          </Button>
+        </Box>
+        {/* ) : (
           <Link
             href="https://www.workfynder.com/artisan/profile/security/question"
             variant="body2"
@@ -239,7 +248,7 @@ function ChangePassword() {
           >
             Please set your security question and return.
           </Link>
-        )}
+        )} */}
       </Box>
     </Card>
   )

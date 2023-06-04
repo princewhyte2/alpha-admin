@@ -24,8 +24,8 @@ const getUserProfile = async () => {
   return response.data.result
 }
 
-const updateUserProfile = async (data: any) => {
-  const response = await axiosInstance.patch("/update/profile", data)
+const updateUserProfile = async (userId: any, data: any) => {
+  const response = await axiosInstance.patch(`/admins/${userId}`, data)
   return response.data
 }
 
@@ -82,14 +82,15 @@ const AdminProfile = () => {
       profile_image_id: logo ? logo.id : appUser?.relationships?.profile_image?.id,
       first_name: firstNameRef.current?.value,
       last_name: lastNameRef.current?.value,
-      phone_number: phoneNumberRef.current?.value || "",
+      phone: phoneNumberRef.current?.value || "",
       email: emailRef.current?.value,
+
       // gender: genderRef.current?.value,
     }
     setIsUpdating(true)
 
     try {
-      const response = await updateUserProfile(data)
+      const response = await updateUserProfile(appUser?.id, data)
       notify(response?.message)
       mutate("userProfile")
       setisEdit(false)
@@ -102,7 +103,7 @@ const AdminProfile = () => {
         //console.log("Error", error.message)
       }
     } finally {
-      setIsUpdating(true)
+      setIsUpdating(false)
     }
   }
   return (
@@ -137,12 +138,12 @@ const AdminProfile = () => {
                   {appUser?.email}
                 </Typography>
               </Stack>
-              <Stack direction={"row"} alignItems={"center"} spacing={2}>
+              {/* <Stack direction={"row"} alignItems={"center"} spacing={2}>
                 <Button variant="contained">Gender</Button>
                 <Typography sx={{ color: "primary.dark", fontSize: { xs: 14, md: 16 } }} variant="h6">
                   {appUser?.gender}
                 </Typography>
-              </Stack>
+              </Stack> */}
               <Stack direction={"row"} alignItems={"center"} spacing={2}>
                 <Button variant="contained">Phone number</Button>
                 <Typography sx={{ color: "primary.dark", fontSize: { xs: 14, md: 16 } }} variant="h6">

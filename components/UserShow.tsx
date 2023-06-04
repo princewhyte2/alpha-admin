@@ -201,28 +201,31 @@ const UserShow = () => {
                           src={data?.relationships?.company?.logo_image?.url}
                         />
                         <Stack direction={"row"} spacing={3}>
-                          <Button
-                            onClick={() => {
-                              setIsDeactivate(false)
-                              setOpen(true)
-                            }}
-                            color="success"
-                            variant="contained"
-                            startIcon={<ApprovalIcon />}
-                          >
-                            Activate
-                          </Button>
-                          <Button
-                            onClick={() => {
-                              setIsDeactivate(true)
-                              setOpen(true)
-                            }}
-                            color="error"
-                            variant="contained"
-                            startIcon={<AppBlockingIcon />}
-                          >
-                            Deactivate
-                          </Button>
+                          {data?.is_banned ? (
+                            <Button
+                              onClick={() => {
+                                setIsDeactivate(false)
+                                setOpen(true)
+                              }}
+                              color="success"
+                              variant="contained"
+                              startIcon={<ApprovalIcon />}
+                            >
+                              Activate
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => {
+                                setIsDeactivate(true)
+                                setOpen(true)
+                              }}
+                              color="error"
+                              variant="contained"
+                              startIcon={<AppBlockingIcon />}
+                            >
+                              Deactivate
+                            </Button>
+                          )}
                           <Confirm
                             isOpen={open}
                             loading={isActivating}
@@ -404,28 +407,31 @@ const UserShow = () => {
                           </Typography>
                         </Stack>
                         <Stack direction={"column"} spacing={3}>
-                          <Button
-                            onClick={() => {
-                              setIsDeactivate(false)
-                              setOpen(true)
-                            }}
-                            color="success"
-                            variant="contained"
-                            startIcon={<ApprovalIcon />}
-                          >
-                            Activate
-                          </Button>
-                          <Button
-                            onClick={() => {
-                              setIsDeactivate(true)
-                              setOpen(true)
-                            }}
-                            color="error"
-                            variant="contained"
-                            startIcon={<AppBlockingIcon />}
-                          >
-                            Deactivate
-                          </Button>
+                          {data?.is_banned ? (
+                            <Button
+                              onClick={() => {
+                                setIsDeactivate(false)
+                                setOpen(true)
+                              }}
+                              color="success"
+                              variant="contained"
+                              startIcon={<ApprovalIcon />}
+                            >
+                              Activate
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => {
+                                setIsDeactivate(true)
+                                setOpen(true)
+                              }}
+                              color="error"
+                              variant="contained"
+                              startIcon={<AppBlockingIcon />}
+                            >
+                              Deactivate
+                            </Button>
+                          )}
                           <Confirm
                             isOpen={open}
                             loading={isActivating}

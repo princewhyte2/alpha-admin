@@ -3,7 +3,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
-import { stringify } from "query-string"
+
 const BASE_URL = `https://backend-staging.workfynder.com/api`
 
 export default async function handler (
@@ -23,23 +23,14 @@ export default async function handler (
   switch (req.method) {
     case 'GET':
       try {
-        const roles: any = await axios.get(`${BASE_URL}/roles`, { headers })
-        const roleArray:any[] = roles.data?.result?.roles
-        // console.log('user roles', )
-        const roleId = roleArray.find((role:any) => role.name === 'employer')
-         const query = {
-           ...req.query,
-          //  user_type: "employer",
-            role:roleId.id,
-        }
-        // console.log("artisan query", req.query)
-        const response = await axios.get(`${BASE_URL}/users?${stringify(query)}`, { headers })
-        
-        res.setHeader('Content-Range', response.data?.result?.meta.total)
-        return res.status(200).json(response.data?.result?.data)
+        const response = await axios.get(`${BASE_URL}/roles`, { headers })
+        // console.log('response project', response.data)
+        const count =  response.data?.result?.roles.length
+        res.setHeader('Content-Range',count)
+        return res.status(200).json(response.data?.result?.roles)
       } catch (err) {
         console.log(err)
-        res.status(403).json({ message: 'Error' })
+        res.status(503).json({ message: 'Error' })
       }
 
     case 'PUT':

@@ -18,8 +18,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   switch (req.method) {
     case "GET":
       try {
+
+          const roles: any = await axios.get(`${BASE_URL}/roles`, { headers })
+        const roleArray:any[] = roles.data?.result?.roles
+        // console.log('user roles', )
+        const roleId = roleArray.find((role:any) => role.name === 'artisan')
         const query = {
-          user_type: "artisan",
+          // user_type: "artisan",
+          role:roleId.id,
           ...req.query,
         }
         // console.log("artisan query", req.query)
