@@ -21,7 +21,7 @@ const postFilters = [
 ]
 
 export const SkillList = () => (
-  <MyList title="Skills" filters={postFilters} perPage={15}>
+  <MyList isCreate title="Skills" filters={postFilters} perPage={15}>
     <Datagrid bulkActionButtons={false} rowClick="edit">
       {/* <TextField source="id" /> */}
       <ReferenceField source="occupation_id" reference="occupations" />

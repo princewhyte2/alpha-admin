@@ -245,11 +245,12 @@ const Dashboard = () => {
             <Grid item xs={12}>
               <Item>
                 <Stack
-                  sx={{ mb: 1 }}
+                  sx={{ mb: 1, cursor: "pointer" }}
                   alignItems={"center"}
                   direction={"row"}
                   justifyContent={"space-between"}
                   spacing={2}
+                  onClick={() => redirect("/jobs")}
                 >
                   <Stack alignItems={"center"}>
                     <Typography variant="h6" gutterBottom>

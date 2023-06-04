@@ -21,7 +21,7 @@ const postFilters = [
 ]
 export const PostPagination = () => <Pagination rowsPerPageOptions={[15]} />
 export const OccupationList = () => (
-  <MyList title="Occupations" perPage={15} filters={postFilters}>
+  <MyList isCreate title="Occupations" perPage={15} filters={postFilters}>
     <Datagrid bulkActionButtons={false} rowClick="edit">
       {/* <TextField source="id" /> */}
       <TextField source="name" />

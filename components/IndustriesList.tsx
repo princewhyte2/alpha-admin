@@ -11,7 +11,7 @@ const postFilters = [
   // <TextInput key="closing_at" label="closing date" source="closing_at" />,
 ]
 export const IndustryList = () => (
-  <MyList title="Industries" filters={postFilters} perPage={15}>
+  <MyList isCreate title="Industries" filters={postFilters} perPage={15}>
     <Datagrid bulkActionButtons={false} rowClick="edit">
       {/* <TextField source="id" /> */}
       <TextField source="name" />
