@@ -39,6 +39,7 @@ import MyLoginPage from "../../components/MyLoginPage"
 import AdminProfile from "../../components/Adminprofile"
 import ChangePassword from "../../components/ChangePassword"
 import CreatePost from "../../components/CreatePost"
+import { RolesList } from "../../components/Roles"
 
 const theme = {
   ...defaultTheme,
@@ -160,7 +161,7 @@ const App = () => (
     />
     <Resource icon={GroupAddIcon} name="referrals" list={ReferralList} />
     <Resource icon={FlagIcon} name="countries" list={CountryList} />
-    {/* <Resource icon={FlagIcon} name="roles" list={ListGuesser} /> */}
+    <Resource icon={FlagIcon} name="roles" list={RolesList} />
     <CustomRoutes>
       <Route path="/password" element={<ChangePassword />} />
       <Route path="/profile" element={<AdminProfile />} />

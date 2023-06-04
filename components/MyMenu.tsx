@@ -49,6 +49,10 @@ const profileNav = [
     name: "Security",
     route: "/password",
   },
+  {
+    name: "Roles",
+    route: "/roles",
+  },
   // {
   //   name: "Roles & Permissions",
   //   route: "/artisan/profile/security",
