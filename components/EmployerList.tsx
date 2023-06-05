@@ -69,17 +69,16 @@ export const EmployerList = () => (
       // rowClick="edit"
     >
       <TextField source="id" />
-      <TextField label="Company Name" source="relationships.company?.name" />
-      <TextField label="Industry" source="relationships.company?.business_sector.name" />
+      <TextField label="Company Name" source="relationships.company.name" />
+      <TextField label="Industry" source="relationships.company.business_sector.name" />
       {/* <TextField source="title" /> */}
-      <EmailField label="Company email" source="relationships.company?.email" />
+      <EmailField label="Company email" source="relationships.company.email" />
       <TextField label="Owners first name" source="first_name" />
       <TextField label="Owners middle name" source="middle_name" />
       <TextField label="Owners last name" source="last_name" />
       {/* <TextField source="user_type" /> */}
       {/* <TextField source="gender" /> */}
       <TextField source="referrer_point" />
-
       <ShowButton />
       {/* <DateField source="date_of_birth" />
       <TextField source="referrer_code" />

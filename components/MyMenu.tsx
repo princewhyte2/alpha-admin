@@ -142,7 +142,7 @@ export const MyMenu = () => {
         primaryText="Payments"
         leftIcon={<FactoryIcon color="primary" />}
       />
-      {appUser.user_type === "super_admin" && (
+      {appUser?.user_type === "super_admin" && (
         <List>
           <ListItem disablePadding>
             <ListItemButton
