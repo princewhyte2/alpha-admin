@@ -24,11 +24,11 @@ export const SkillList = () => (
   <MyList isCreate title="Skills" filters={postFilters} perPage={15}>
     <Datagrid bulkActionButtons={false} rowClick="edit">
       {/* <TextField source="id" /> */}
-      <ReferenceField source="occupation_id" reference="occupations" />
-      <TextField source="name" />
+      <ReferenceField sortable={false} source="occupation_id" reference="occupations" />
+      <TextField sortable={false} source="name" />
       {/* <NumberField source="status" /> */}
-      <DateField label="Created date" source="created_at" />
-      <DateField label="Updated date" source="updated_at" />
+      <DateField sortable={false} label="Created date" source="created_at" />
+      <DateField sortable={false} label="Updated date" source="updated_at" />
       <EditButton />
       {/* <DeleteWithConfirmButton /> */}
     </Datagrid>

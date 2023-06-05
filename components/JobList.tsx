@@ -63,24 +63,24 @@ const postFilters = [
 export const JobList = () => (
   <MyList title="Jobs" exporter={exporter} filters={postFilters} perPage={15}>
     <Datagrid bulkActionButtons={false}>
-      <TextField source="id" />
+      <TextField sortable={false} source="id" />
       {/* <ReferenceField source="company_id" reference="companies" /> */}
       {/* <NumberField source="posted_by.id" /> */}
-      <TextField source="company.name" />
-      <TextField label="Occupation" source="occupation.name" />
+      <TextField sortable={false} source="company.name" />
+      <TextField sortable={false} label="Occupation" source="occupation.name" />
       {/* <ReferenceField source="vacancy_category_id" reference="vacancy_categories" /> */}
       {/* <TextField source="title" /> */}
       {/* <TextField source="description" /> */}
       {/* <TextField source="skills" /> */}
-      <TextField source="location" />
-      <TextField source="duration" />
-      <TextField source="preferred_gender" />
-      <DateField label="Closing date" source="closing_at" />
+      <TextField sortable={false} source="location" />
+      <TextField sortable={false} source="duration" />
+      <TextField sortable={false} source="preferred_gender" />
+      <DateField sortable={false} label="Closing date" source="closing_at" />
       {/* <TextField source="published_at" /> */}
       {/* <TextField source="vacancy_type" /> */}
       {/* <TextField source="status" /> */}
       {/* <TextField source="salary" /> */}
-      <DateField label="Created date" source="created_at" />
+      <DateField sortable={false} label="Created date" source="created_at" />
       {/* <DateField source="updated_at" /> */}
       {/* <TextField source="occupation.name" /> */}
 

@@ -14,15 +14,15 @@ const postFilters = [
 export const PaymentList = () => (
   <MyList sortable={false} title="Payments" perPage={15} filters={postFilters}>
     <Datagrid>
-      <TextField source="id" />
-      <TextField label="First Name" source="user.first_name" />
-      <TextField label="Last Name" source="user.last_name" />
-      <NumberField source="processed_by" />
-      <NumberField source="total" />
-      <TextField source="status" />
-      <DateField label="Payment Date" source="created_at" />
+      <TextField sortable={false} source="id" />
+      <TextField sortable={false} label="First Name" source="user.first_name" />
+      <TextField sortable={false} label="Last Name" source="user.last_name" />
+      <NumberField sortable={false} source="processed_by" />
+      <NumberField sortable={false} source="total" />
+      <TextField sortable={false} source="status" />
+      <DateField sortable={false} label="Payment Date" source="created_at" />
       {/* <DateField source="updated_at" /> */}
-      <NumberField source="user.id" />
+      <NumberField sortable={false} source="user.id" />
     </Datagrid>
   </MyList>
 )

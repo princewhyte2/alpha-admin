@@ -24,10 +24,10 @@ export const OccupationList = () => (
   <MyList isCreate title="Occupations" perPage={15} filters={postFilters}>
     <Datagrid bulkActionButtons={false} rowClick="edit">
       {/* <TextField source="id" /> */}
-      <TextField source="name" />
+      <TextField sortable={false} source="name" />
       {/* <TextField source="description" /> */}
       {/* <NumberField source="active" /> */}
-      <ReferenceField source="industry_id" reference="industries" />
+      <ReferenceField sortable={false} source="industry_id" reference="industries" />
       <EditButton />
       {/* <DeleteWithConfirmButton /> */}
     </Datagrid>

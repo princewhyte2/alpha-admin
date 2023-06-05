@@ -72,19 +72,19 @@ export const ReferralList = () => {
   return (
     <MyList title="Referrals" filters={postFilters} exporter={exporter} perPage={15}>
       <Datagrid bulkActionButtons={false}>
-        <TextField source="id" />
+        <TextField sortable={false} source="id" />
         {/* <BooleanField source="claimed" /> */}
-        <DateField label="Created date" source="created_at" />
-        <NumberField source="user.id" />
-        <TextField source="user.first_name" />
-        <TextField source="user.email" />
+        <DateField sortable={false} label="Created date" source="created_at" />
+        <NumberField sortable={false} source="user.id" />
+        <TextField sortable={false} source="user.first_name" />
+        <TextField sortable={false} source="user.email" />
         {/* <ReferenceField source="user.id" reference="users" /> */}
-        <NumberField label="Referrer Id" source="referred_by.id" />
+        <NumberField sortable={false} label="Referrer Id" source="referred_by.id" />
         {/* <ReferenceField source="referred_by.id" reference="users" /> */}
-        <TextField label="Referrer Email" source="referred_by.email" />
-        <TextField label="Referrer First Name" source="referred_by.first_name" />
-        <TextField label="Referrer Last Name" source="referred_by.last_name" />
-        <TextField label="Referrer point" source="referred_by.referral_point" />
+        <TextField sortable={false} label="Referrer Email" source="referred_by.email" />
+        <TextField sortable={false} label="Referrer First Name" source="referred_by.first_name" />
+        <TextField sortable={false} label="Referrer Last Name" source="referred_by.last_name" />
+        <TextField sortable={false} label="Referrer point" source="referred_by.referral_point" />
         {/* <ShowButton icon={<PaymentIcon />} label="Pay" onClick={handleClick} /> */}
         {/* <Button label="Delete" onClick={handleClick} /> */}
         {/* <DeleteWithConfirmButton

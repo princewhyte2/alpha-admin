@@ -84,17 +84,18 @@ export const ArtisanList = () => (
           color: "white",
         },
       }}
+
       // rowClick="edit"
     >
-      <TextField source="id" />
-      <TextField source="title" />
-      <TextField source="first_name" />
-      <TextField source="middle_name" />
-      <TextField source="last_name" />
+      <TextField sortable={false} source="id" />
+      <TextField sortable={false} source="title" />
+      <TextField sortable={false} source="first_name" />
+      <TextField sortable={false} source="middle_name" />
+      <TextField sortable={false} source="last_name" />
       {/* <TextField source="user_type" /> */}
-      <EmailField source="email" />
-      <TextField source="gender" />
-      <TextField source="referrer_point" />
+      <EmailField sortable={false} source="email" />
+      <TextField sortable={false} source="gender" />
+      <TextField sortable={false} source="referrer_point" />
 
       <ShowButton />
       {/* <DateField source="date_of_birth" />

@@ -14,10 +14,10 @@ export const IndustryList = () => (
   <MyList isCreate title="Industries" filters={postFilters} perPage={15}>
     <Datagrid bulkActionButtons={false} rowClick="edit">
       {/* <TextField source="id" /> */}
-      <TextField source="name" />
+      <TextField sortable={false} source="name" />
       {/* <NumberField source="status" /> */}
-      <DateField label="Created date" source="created_at" />
-      <DateField label="Updated date" source="updated_at" />
+      <DateField sortable={false} label="Created date" source="created_at" />
+      <DateField sortable={false} label="Updated date" source="updated_at" />
       <EditButton />
       {/* <DeleteWithConfirmButton /> */}
     </Datagrid>
