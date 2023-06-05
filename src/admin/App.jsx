@@ -40,6 +40,7 @@ import AdminProfile from "../../components/Adminprofile"
 import ChangePassword from "../../components/ChangePassword"
 import CreatePost from "../../components/CreatePost"
 import { RolesList } from "../../components/Roles"
+import { PaymentList } from "../../components/PaymentLists"
 
 const theme = {
   ...defaultTheme,
@@ -159,9 +160,10 @@ const App = () => (
       name="skills"
       list={SkillList}
     />
+    <Resource icon={FlagIcon} name="payments" list={PaymentList} />
     <Resource icon={GroupAddIcon} name="referrals" list={ReferralList} />
     <Resource icon={FlagIcon} name="countries" list={CountryList} />
-    <Resource icon={FlagIcon} name="roles" list={RolesList} />
+    <Resource icon={FlagIcon} recordRepresentation={"name"} name="roles" list={RolesList} />
     <CustomRoutes>
       <Route path="/password" element={<ChangePassword />} />
       <Route path="/profile" element={<AdminProfile />} />

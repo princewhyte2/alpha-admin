@@ -24,10 +24,10 @@ export default async function handler (
     case 'GET':
       try {
          const { id } = req.query
-        const response = await axios.get(`${BASE_URL}/occupations/${id}`, { headers })
-        console.log('occupation', response.data)
+        const response = await axios.get(`${BASE_URL}/referrals/payments/${id}`, { headers })
+        console.log('skills', response.data)
        
-        return res.status(200).json(response.data.result.occupation)
+        return res.status(200).json(response.data.result.skill)
       } catch (err) {
         console.log(err)
         res.status(503).json({ message: 'Error' })
@@ -36,31 +36,30 @@ export default async function handler (
     case 'PUT':
       // Handle PUT request
       // ...
-        try {
+       try {
          const { id } = req.query
-         console.log("here is req body",req.body)
-        const response = await axios.patch(`${BASE_URL}/occupations/${id}`, {industry_id:req.body.industry_id,name:req.body.name },{ headers })
-        console.log('occupation', response.data)
+        const response = await axios.patch(`${BASE_URL}/referrals/payments/${id}`, { name:req.body.name,occupation_id:req.body.occupation_id },{ headers })
+        console.log('skill', response.data)
        
-        return res.status(200).json(response.data.result.occupation)
+        return res.status(200).json(response.data.result.skill)
       } catch (err) {
         console.log(err)
         res.status(503).json({ message: 'Error' })
       }
       break
-    case 'POST':
-      // Handle POST request
-      // ...
-      
-      break
     case 'DELETE':
       // Handle POST request
       // ...
-      const { id } = req.query
-        const response = await axios.delete(`${BASE_URL}/occupations/${id}`, { headers })
-        console.log('occupation', response.data)
+       try {
+         const { id } = req.query
+         const response = await axios.patch(`${BASE_URL}/referrals/payments/${id}`, {},{ headers })
+        console.log('del payment', response.data)
        
-        return res.status(200).json('resource deleted')
+       return res.status(200).json('payment success')
+      } catch (err) {
+        console.log(err)
+        res.status(503).json({ message: 'Error' })
+      }
       break
     default:
       res.status(405).json({ message: 'Method Not Allowed' })

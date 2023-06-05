@@ -4,7 +4,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 
-const BASE_URL = `https://backend-staging.workfynder.com/api`
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ;
 
 export default async function handler (
   req: NextApiRequest,
@@ -37,7 +37,17 @@ export default async function handler (
       // Handle PUT request
       // ...
       break
-    case 'POST':
+    case 'DELETE':
+       try {
+         const { id } = req.query
+         const response = await axios.patch(`${BASE_URL}/referrals/payments/${id}`, {},{ headers })
+        console.log('del payment', response.data)
+       
+       return res.status(200).json('payment success')
+      } catch (err) {
+        console.log(err)
+        res.status(503).json({ message: 'Error' })
+      }
       // Handle POST request
       // ...
       break

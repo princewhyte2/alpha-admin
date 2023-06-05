@@ -12,15 +12,18 @@ import {
   CreateButton,
   FilterForm,
   downloadCSV,
-  FilterButton,
+  ReferenceInput,
+  DeleteWithConfirmButton,
 } from "react-admin"
 import jsonExport from "jsonexport/dist"
 import { MyList } from "./ArtisanLists"
+import PaymentIcon from "@mui/icons-material/Payment"
 import { Stack } from "@mui/material"
 import { PostPagination } from "./OccupationsList"
 const postFilters = [
   // <TextInput key="q" label="Search" source="q" alwaysOn />,
-  <TextInput key="user_type" label="User Type" source="user_type" defaultValue="artisan" />,
+  <ReferenceInput key="role" label="Role" source="role" reference="roles" />,
+  // <TextInput key="user_type" label="User Type" source="user_type" defaultValue="artisan" />,
   <TextInput key="title" label="Title" source="title" />,
   <TextInput key="gender" label="Gender" source="gender" />,
   <TextInput key="email" label="Email" source="email" />,
@@ -54,7 +57,7 @@ const exporter = (users: any) => {
 }
 
 export const UserList = () => (
-  <MyList title="Users" exporter={exporter} perPage={15} filters={postFilters}>
+  <MyList sortable={false} title="Users" exporter={exporter} perPage={15} filters={postFilters}>
     <Datagrid
       bulkActionButtons={false}
       sx={{
@@ -71,11 +74,19 @@ export const UserList = () => (
       <TextField source="first_name" />
       <TextField source="middle_name" />
       <TextField source="last_name" />
-      <TextField source="user_type" />
+      <TextField label="Role" source="user_type" />
       <EmailField source="email" />
       <TextField source="gender" />
       <TextField source="referrer_point" />
-
+      <DeleteWithConfirmButton
+        icon={<PaymentIcon />}
+        sx={{ color: "green" }}
+        label="Pay"
+        // confirmTitle="Make payment"
+        title="Make payment"
+        confirmContent="Are you sure you have made payment to this user?"
+        // translateOptions={{ name: record?.referred_by?.first_name }}
+      />
       <ShowButton />
       {/* <DateField source="date_of_birth" />
       <TextField source="referrer_code" />

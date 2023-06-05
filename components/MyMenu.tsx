@@ -21,11 +21,19 @@ import WorkHistoryIcon from "@mui/icons-material/WorkHistory"
 import FlagIcon from "@mui/icons-material/Flag"
 import PersonSearchIcon from "@mui/icons-material/PersonSearch"
 import FeedIcon from "@mui/icons-material/Feed"
+import useSWR, { mutate, useSWRConfig } from "swr"
 import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied"
 import GroupAddIcon from "@mui/icons-material/GroupAdd"
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing"
 import SettingsIcon from "@mui/icons-material/Settings"
+import axiosInstance from "../services/instance"
 
+// const MyAppBar = () => <AppBar sx={{ backgroundColor: "#FAFAFA" }} position="fixed" />
+
+const getUserProfile = async () => {
+  const response = await axiosInstance.get("/my/profile")
+  return response.data.result
+}
 const MyLogoutButton = (props: any) => (
   <Logout
     {...props}
@@ -66,6 +74,11 @@ const profileNav = [
 export const MyMenu = () => {
   const redirect = useRedirect()
   const [open, setOpen] = React.useState(true)
+  const { data: appUser } = useSWR("userProfile", getUserProfile, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  })
   return (
     <Menu sx={{ borderColor: "#3E4095" }}>
       <Box sx={{ height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -123,31 +136,39 @@ export const MyMenu = () => {
         primaryText="Referrals"
         leftIcon={<GroupAddIcon color="primary" />}
       />
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton
-            onClick={(e) => {
-              setOpen((bool) => !bool)
-            }}
-            sx={{ color: "primary.dark" }}
-          >
-            <ListItemIcon>
-              <SettingsIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText sx={{ ml: -2 }} primary={"Settings"} />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          {profileNav.map((item) => (
-            <List key={item.name} component="div" disablePadding>
-              <ListItemButton onClick={() => redirect(item.route)} sx={{ pl: 4 }}>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
-            </List>
-          ))}
-        </Collapse>
-      </List>
+      <Menu.Item
+        sx={{ color: "#3E4095" }}
+        to="/payments"
+        primaryText="Payments"
+        leftIcon={<FactoryIcon color="primary" />}
+      />
+      {appUser.user_type === "super_admin" && (
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton
+              onClick={(e) => {
+                setOpen((bool) => !bool)
+              }}
+              sx={{ color: "primary.dark" }}
+            >
+              <ListItemIcon>
+                <SettingsIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText sx={{ ml: -2 }} primary={"Settings"} />
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+          </ListItem>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            {profileNav.map((item) => (
+              <List key={item.name} component="div" disablePadding>
+                <ListItemButton onClick={() => redirect(item.route)} sx={{ pl: 4 }}>
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              </List>
+            ))}
+          </Collapse>
+        </List>
+      )}
 
       <MyLogoutButton />
     </Menu>

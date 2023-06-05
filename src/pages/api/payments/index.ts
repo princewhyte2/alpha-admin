@@ -3,7 +3,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
-
+import { stringify } from "query-string"
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ;
 
 export default async function handler (
@@ -23,13 +23,18 @@ export default async function handler (
   switch (req.method) {
     case 'GET':
       try {
-        const response = await axios.get(`${BASE_URL}/countries`, { headers })
-        console.log('country', response.data)
-        res.setHeader('Content-Range', response.data?.result?.countries.length)
-        return res.status(200).json(response.data?.result?.countries)
+          const query = {
+          // shouldPaginate:'yes',
+          ...req.query
+        }
+        const response = await axios.get(`${BASE_URL}/referrals/payments?${stringify(query)}`, { headers })
+        console.log(' payments', response.data)
+        const count =  response?.data?.result?.referral_payments.total
+        res.setHeader('Content-Range',count)
+        return res.status(200).json(response?.data?.result?.referral_payments?.data)
       } catch (err) {
         console.log(err)
-        res.status(403).json({ message: 'Error' })
+        res.status(503).json({ message: 'Error' })
       }
 
     case 'PUT':

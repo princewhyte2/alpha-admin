@@ -104,7 +104,7 @@ const Dashboard = () => {
     return finalData
   }, [data])
 
-  console.log("dashboard", data)
+  // console.log("dashboard", data)
 
   return (
     <Container disableGutters sx={{ py: 4 }} maxWidth="xl">

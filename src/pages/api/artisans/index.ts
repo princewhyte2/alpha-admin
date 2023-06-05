@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import { stringify } from "query-string"
 import axios from "axios"
 
-const BASE_URL = `https://backend-staging.workfynder.com/api`
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   const token = req.headers.authorization

@@ -2,16 +2,23 @@ import {
   downloadCSV,
   ReferenceField,
   BooleanField,
+  ShowButton,
   Datagrid,
   DateField,
   TextInput,
   NumberField,
   TextField,
+  DeleteWithConfirmButton,
+  Confirm,
+  useRecordContext,
+  useDelete,
 } from "react-admin"
 
 import jsonExport from "jsonexport/dist"
 import { PostPagination } from "./OccupationsList"
 import { MyList } from "./ArtisanLists"
+import PaymentIcon from "@mui/icons-material/Payment"
+import { useState } from "react"
 const exporter = (users: any) => {
   const postsForExport = users.map((ref: any) => {
     const { id, created_at, user, referred_by } = ref // omit backlinks and author
@@ -59,22 +66,44 @@ const postFilters = [
   // <TextInput key="closing_at" label="closing date" source="closing_at" />,
 ]
 
-export const ReferralList = () => (
-  <MyList title="Referrals" filters={postFilters} exporter={exporter} perPage={15}>
-    <Datagrid bulkActionButtons={false} rowClick="edit">
-      <TextField source="id" />
-      {/* <BooleanField source="claimed" /> */}
-      <DateField label="Created date" source="created_at" />
-      <NumberField source="user.id" />
-      <TextField source="user.first_name" />
-      <TextField source="user.email" />
-      {/* <ReferenceField source="user.id" reference="users" /> */}
-      <NumberField label="Referrer Id" source="referred_by.id" />
-      {/* <ReferenceField source="referred_by.id" reference="users" /> */}
-      <TextField label="Referrer Email" source="referred_by.email" />
-      <TextField label="Referrer First Name" source="referred_by.first_name" />
-      <TextField label="Referrer Last Name" source="referred_by.last_name" />
-      <TextField label="Referrer point" source="referred_by.referral_point" />
-    </Datagrid>
-  </MyList>
-)
+export const ReferralList = () => {
+  // console.log("the record", record)
+
+  return (
+    <MyList title="Referrals" filters={postFilters} exporter={exporter} perPage={15}>
+      <Datagrid bulkActionButtons={false}>
+        <TextField source="id" />
+        {/* <BooleanField source="claimed" /> */}
+        <DateField label="Created date" source="created_at" />
+        <NumberField source="user.id" />
+        <TextField source="user.first_name" />
+        <TextField source="user.email" />
+        {/* <ReferenceField source="user.id" reference="users" /> */}
+        <NumberField label="Referrer Id" source="referred_by.id" />
+        {/* <ReferenceField source="referred_by.id" reference="users" /> */}
+        <TextField label="Referrer Email" source="referred_by.email" />
+        <TextField label="Referrer First Name" source="referred_by.first_name" />
+        <TextField label="Referrer Last Name" source="referred_by.last_name" />
+        <TextField label="Referrer point" source="referred_by.referral_point" />
+        {/* <ShowButton icon={<PaymentIcon />} label="Pay" onClick={handleClick} /> */}
+        {/* <Button label="Delete" onClick={handleClick} /> */}
+        {/* <DeleteWithConfirmButton
+          icon={<PaymentIcon />}
+          color="success"
+          label="Pay"
+          title="Make payment"
+          confirmContent="Are you sure you have made payment to this user?"
+          translateOptions={{ name: record?.referred_by?.first_name }}
+        /> */}
+        {/* <Confirm
+          isOpen={open}
+          loading={isLoading}
+          title={`Make Payment #${record && record.id}`}
+          content="Are you sure you have made payment to this user?"
+          onConfirm={handleConfirm}
+          onClose={handleDialogClose}
+        /> */}
+      </Datagrid>
+    </MyList>
+  )
+}
