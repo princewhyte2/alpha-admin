@@ -46,7 +46,7 @@ export default async function handler (
       // ...
        try {
         
-        const response = await axios.put(`${BASE_URL}/occupations`, {industry_id:req.body.industry_id,name:req.body.name },{ headers })
+        const response = await axios.post(`${BASE_URL}/occupations`, {industry_id:req.body.industry_id,name:req.body.name },{ headers })
         console.log('occupation', response.data)
        
         return res.status(200).json(response.data.result.occupation)

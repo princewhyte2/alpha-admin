@@ -82,9 +82,10 @@ export const UserList = () => (
         icon={<PaymentIcon />}
         sx={{ color: "green" }}
         label="Pay"
-        // confirmTitle="Make payment"
+        confirmTitle="Make payment"
         title="Make payment"
         confirmContent="Are you sure you have made payment to this user?"
+
         // translateOptions={{ name: record?.referred_by?.first_name }}
       />
       <ShowButton />

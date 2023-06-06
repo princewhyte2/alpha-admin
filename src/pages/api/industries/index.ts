@@ -25,13 +25,20 @@ export default async function handler (
     case 'GET':
       try {
         const query = {
-          shouldPaginate:"yes",
+          // shouldPaginate:"yes",
           ...req.query,
         }
         const response = await axios.get(`${BASE_URL}/industries?${stringify(query)}`, { headers })
         console.log('response', response.data)
-        res.setHeader('Content-Range', response.data?.result?.industries.total)
-        return res.status(200).json(response.data?.result?.industries.data)
+        if (req.query.shouldPaginate) {
+          
+          res.setHeader('Content-Range', response.data?.result?.industries.total)
+           return res.status(200).json(response.data?.result?.industries.data)
+        } else {
+          res.setHeader('Content-Range', response.data?.result?.industries.length)
+           return res.status(200).json(response.data?.result?.industries)
+        }
+       
       } catch (err) {
         console.log(err)
         res.status(503).json({ message: 'Error' })

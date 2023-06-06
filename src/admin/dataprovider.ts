@@ -24,7 +24,8 @@ export const dataProvider = {
       sort: JSON.stringify([field, order]),
       // range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
       limit: JSON.stringify(perPage),
-      page:JSON.stringify(page),
+      page: JSON.stringify(page),
+      shouldPaginate:"yes",
       // filter: JSON.stringify(params.filter),
       ...params.filter
     }
@@ -54,12 +55,12 @@ export const dataProvider = {
     }),
 
   getMany: (resource: string, params: any) => {
-    // const query = {
-    //   filter: JSON.stringify({ id: params.ids }),
-    // }
-    const url = `/api/${resource}`;
+    const query = {
+      filter: JSON.stringify({ id: params.ids }),
+    }
+    const url = `/api/${resource}?${stringify(query)}`;
     return httpClient(url).then(({ json }) => {
-      // console.log("2", json);
+      console.log("all many", json);
       return { data: json };
     });
   },
@@ -75,12 +76,12 @@ export const dataProvider = {
         [params.target]: params.id,
       }),
     };
-    const url = `/api/${resource}?${stringify(query)}`;
+    const url = `/api/${resource}`;
 
     return httpClient(url).then(({ headers, json }) => {
       // console.log("3", json);
       return {
-        data: json.result.data,
+        data: json,
         total: parseInt(
           (headers.get("content-range") || "0").split("/").pop() || "0",
           10
