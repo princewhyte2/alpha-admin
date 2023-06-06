@@ -142,24 +142,18 @@ const App = () => (
       name="occupations"
       list={OccupationList}
       edit={OccupationEdit}
-      // create={OccupationCreate}
+      create={OccupationCreate}
       recordRepresentation={"name"}
     />
     <Resource
       icon={FactoryIcon}
       name="industries"
       edit={IndustryEdit}
-      // create={IndustryCreate}
+      create={IndustryCreate}
       list={IndustryList}
       recordRepresentation={"name"}
     />
-    <Resource
-      icon={PrecisionManufacturingIcon}
-      edit={SkillEdit}
-      // create={ SkillCreate }
-      name="skills"
-      list={SkillList}
-    />
+    <Resource icon={PrecisionManufacturingIcon} edit={SkillEdit} create={SkillCreate} name="skills" list={SkillList} />
     <Resource icon={FlagIcon} name="payments" list={PaymentList} />
     <Resource icon={GroupAddIcon} name="referrals" list={ReferralList} />
     <Resource icon={FlagIcon} name="countries" list={CountryList} />

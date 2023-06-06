@@ -3,7 +3,7 @@ import { Datagrid, DateField, TextInput, NumberField, ReferenceField, TextField 
 import { MyList } from "./ArtisanLists"
 
 const postFilters = [
-  // <TextInput key="q" label="Search" source="q" alwaysOn />,
+  <TextInput key="searchTerm" label="Search" source="searchTerm" alwaysOn />,
   // <TextInput key="type" label="User Type" source="user_type" defaultValue="artisan" />,
   <TextInput key="status" label="status" source="status" />,
   // <ReferenceInput key="industry_id" label="industry" source="industry_id" reference="industries" />,
