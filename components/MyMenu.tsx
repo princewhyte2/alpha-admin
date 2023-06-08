@@ -54,7 +54,7 @@ const profileNav = [
     route: "/profile",
   },
   {
-    name: "Security",
+    name: "Password",
     route: "/password",
   },
   {
@@ -136,12 +136,12 @@ export const MyMenu = () => {
         primaryText="Referrals"
         leftIcon={<GroupAddIcon color="primary" />}
       />
-      <Menu.Item
+      {/* <Menu.Item
         sx={{ color: "#3E4095" }}
         to="/payments"
         primaryText="Payments"
         leftIcon={<FactoryIcon color="primary" />}
-      />
+      /> */}
       {appUser?.user_type === "super_admin" && (
         <List>
           <ListItem disablePadding>

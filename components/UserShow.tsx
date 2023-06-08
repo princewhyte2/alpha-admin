@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useGetOne, useRedirect, Title, Confirm, useNotify } from "react-admin"
+import { useGetOne, useRedirect, Title, Confirm, useNotify, useRefresh } from "react-admin"
 import Tooltip from "@mui/material/Tooltip"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import IconButton from "@mui/material/IconButton"
@@ -26,6 +26,7 @@ import Stack from "@mui/material/Stack"
 import { styled } from "@mui/material/styles"
 import AddIcon from "@mui/icons-material/Add"
 import { useCallback, useState } from "react"
+
 import AppBlockingIcon from "@mui/icons-material/AppBlocking"
 import ApprovalIcon from "@mui/icons-material/Approval"
 import axiosInstance from "../services/instance"
@@ -34,7 +35,7 @@ import Profile from "./Profile"
 
 // const MyAppBar = () => <AppBar sx={{ backgroundColor: "#FAFAFA" }} position="fixed" />
 
-const getUserProfile = async () => {
+export const getUserProfile = async () => {
   const response = await axiosInstance.get("/my/profile")
   return response.data.result
 }
@@ -103,6 +104,7 @@ const UserShow = () => {
   const redirect = useRedirect()
   const navigate = useNavigate()
   const notify = useNotify()
+  const refresh = useRefresh()
 
   const { data: appUser } = useSWR("userProfile", getUserProfile, {
     revalidateIfStale: false,
@@ -153,7 +155,7 @@ const UserShow = () => {
       }
       setIsActivating(false)
       setOpen(false)
-      redirect("/users")
+      refresh()
     } catch (error: any) {
       if (error.response) {
         notify(error.response.data.message)

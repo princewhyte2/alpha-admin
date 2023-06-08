@@ -22,7 +22,7 @@ import {
   DeleteButton,
 } from "react-admin"
 import jsonExport from "jsonexport/dist"
-import { MyList } from "./ArtisanLists"
+import { CustomBool, MyList } from "./ArtisanLists"
 import PaymentIcon from "@mui/icons-material/Payment"
 import { Stack } from "@mui/material"
 import { PostPagination } from "./OccupationsList"
@@ -40,13 +40,13 @@ const exporter = (users: any) => {
   const postsForExport = users.map((user: any) => {
     const { id, title, first_name, middle_name, last_name, user_type, email, gender, referrer_point } = user // omit backlinks and author
 
-    return { id, title, first_name, middle_name, last_name, user_type, email, gender, referrer_point }
+    return { "User Id": id, title, first_name, middle_name, last_name, user_type, email, gender, referrer_point }
   })
   jsonExport(
     postsForExport,
     {
       headers: [
-        "id",
+        "User Id",
         "title",
         "first_name",
         "middle_name",
@@ -110,7 +110,7 @@ export const UserList = () => {
         }}
         // rowClick="edit"
       >
-        <TextField sortable={false} source="id" />
+        <TextField label="User Id " sortable={false} source="id" />
         <TextField sortable={false} source="title" />
         <TextField sortable={false} source="first_name" />
         <TextField sortable={false} source="middle_name" />
@@ -119,7 +119,8 @@ export const UserList = () => {
         <EmailField sortable={false} source="email" />
         <TextField sortable={false} source="gender" />
         <TextField sortable={false} source="referrer_point" />
-        <PayButton />
+        <CustomBool />
+        {/* <PayButton /> */}
         {/* <DeleteWithConfirmButton
           icon={<PaymentIcon />}
           sx={{ color: "green" }}

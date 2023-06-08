@@ -82,7 +82,7 @@ const AdminProfile = () => {
       profile_image_id: logo ? logo.id : appUser?.relationships?.profile_image?.id,
       first_name: firstNameRef.current?.value,
       last_name: lastNameRef.current?.value,
-      phone: phoneNumberRef.current?.value || "",
+      phone_number: phoneNumberRef.current?.value || "",
       email: emailRef.current?.value,
 
       // gender: genderRef.current?.value,

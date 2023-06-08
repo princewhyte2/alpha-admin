@@ -6,7 +6,8 @@ import {
   DateField,
   EmailField,
   List,
-  NumberField,
+  FieldTitle,
+  useRecordContext,
   TextField,
   TextInput,
   CreateButton,
@@ -36,12 +37,12 @@ const exporter = (users: any) => {
   const postsForExport = users.map((user: any) => {
     const { id, title, first_name, middle_name, last_name, email, gender, referrer_point } = user // omit backlinks and author
 
-    return { id, title, first_name, middle_name, last_name, email, gender, referrer_point }
+    return { "User Id": id, title, first_name, middle_name, last_name, email, gender, referrer_point }
   })
   jsonExport(
     postsForExport,
     {
-      headers: ["id", "title", "first_name", "middle_name", "last_name", "email", "gender", "referrer_point"], // order fields in the export
+      headers: ["User Id", "title", "first_name", "middle_name", "last_name", "email", "gender", "referrer_point"], // order fields in the export
     },
     (err: any, csv: any) => {
       downloadCSV(csv, "Workfynder Artisans") // download as 'posts.csv` file
@@ -70,6 +71,14 @@ export const MyList = ({ isCreate = false, children, actions, filters, title, ..
     </ListBase>
   </div>
 )
+
+export const CustomBool = () => {
+  const record = useRecordContext()
+
+  const value = record?.is_banned === 0
+
+  return <BooleanField label="is Blocked" source="is_banned" record={{ is_banned: value }} />
+}
 // sx={{ background: "#ffffff", margin: "40px 0 0 0", padding: "16px" }}
 export const ArtisanList = () => (
   // <List pagination={<PostPagination />} exporter={exporter} perPage={15} filters={postFilters}>
@@ -87,7 +96,7 @@ export const ArtisanList = () => (
 
       // rowClick="edit"
     >
-      <TextField sortable={false} source="id" />
+      <TextField sortable={false} label="User Id" source="id" />
       <TextField sortable={false} source="title" />
       <TextField sortable={false} source="first_name" />
       <TextField sortable={false} source="middle_name" />
@@ -96,12 +105,12 @@ export const ArtisanList = () => (
       <EmailField sortable={false} source="email" />
       <TextField sortable={false} source="gender" />
       <TextField sortable={false} source="referrer_point" />
-
+      <CustomBool />
       <ShowButton />
       {/* <DateField source="date_of_birth" />
       <TextField source="referrer_code" />
       <TextField source="hobbies" />
-      <BooleanField source="has_set_security_question" />
+     
       <TextField source="phone_number" />
       <TextField source="other_phone_number" />
       <TextField source="user_type" />

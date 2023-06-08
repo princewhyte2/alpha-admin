@@ -90,7 +90,7 @@ const Profile = ({ appUser }: any) => {
       profile_image_id: logo ? logo.id : appUser?.relationships?.profile_image?.id,
       first_name: firstNameRef.current?.value,
       last_name: lastNameRef.current?.value,
-      phone: phoneNumberRef.current?.value || "",
+      phone_number: phoneNumberRef.current?.value || "",
       email: emailRef.current?.value,
 
       // gender: genderRef.current?.value,
@@ -104,8 +104,8 @@ const Profile = ({ appUser }: any) => {
       updatedData.last_name = data.last_name
     }
 
-    if (data.phone !== appUser.phone) {
-      updatedData.phone = data.phone
+    if (data.phone_number !== appUser.phone_number) {
+      updatedData.phone_number = data.phone_number
     }
 
     if (data.email !== appUser.email) {

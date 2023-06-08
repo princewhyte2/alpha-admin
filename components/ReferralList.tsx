@@ -71,13 +71,13 @@ export const ReferralList = () => {
 
   return (
     <MyList title="Referrals" filters={postFilters} exporter={exporter} perPage={15}>
-      <Datagrid bulkActionButtons={false}>
-        <TextField sortable={false} source="id" />
+      <Datagrid>
+        {/* <TextField sortable={false} source="id" /> */}
         {/* <BooleanField source="claimed" /> */}
         <DateField sortable={false} label="Created date" source="created_at" />
-        <NumberField sortable={false} source="user.id" />
-        <TextField sortable={false} source="user.first_name" />
-        <TextField sortable={false} source="user.email" />
+        <NumberField label="Referree Id" sortable={false} source="user.id" />
+        <TextField sortable={false} label="Referree First Name" source="user.first_name" />
+        <TextField sortable={false} label="Referree Last Name" source="user.email" />
         {/* <ReferenceField source="user.id" reference="users" /> */}
         <NumberField sortable={false} label="Referrer Id" source="referred_by.id" />
         {/* <ReferenceField source="referred_by.id" reference="users" /> */}

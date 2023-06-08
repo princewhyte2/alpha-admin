@@ -41,6 +41,7 @@ import ChangePassword from "../../components/ChangePassword"
 import CreatePost from "../../components/CreatePost"
 import { RolesList } from "../../components/Roles"
 import { PaymentList } from "../../components/PaymentLists"
+import CreateJob from "../../components/CreateJob"
 
 const theme = {
   ...defaultTheme,
@@ -132,7 +133,7 @@ const App = () => (
       icon={WorkHistoryIcon}
       show={JobShow}
       // edit={EditGuesser}
-      // create={EditGuesser}
+      create={CreateJob}
       name="jobs"
       list={JobList}
     />

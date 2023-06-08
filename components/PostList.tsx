@@ -21,7 +21,8 @@ const exporter = (users: any) => {
     const { id, total_comments, total_likes, created_at, relationships } = user // omit backlinks and author
 
     return {
-      id,
+      "Post Id": id,
+      "User Id": relationships.created_by.id,
       "First Name": relationships.created_by.first_name,
       "Last Name": relationships.created_by.last_name,
       "Created date": created_at,
@@ -32,7 +33,7 @@ const exporter = (users: any) => {
   jsonExport(
     postsForExport,
     {
-      headers: ["id", "First Name", "Last Name", "Created date", "Total likes", "Total Comments"], // order fields in the export
+      headers: ["Post Id", "User Id", "First Name", "Last Name", "Created date", "Total likes", "Total Comments"], // order fields in the export
     },
     (err: any, csv: any) => {
       downloadCSV(csv, "Workfynder Posts") // download as 'posts.csv` file
@@ -53,12 +54,13 @@ const postFilters = [
 export const PostList = () => (
   <MyList title="Posts" isCreate exporter={exporter} filters={postFilters} perPage={15}>
     <Datagrid bulkActionButtons={false}>
-      <TextField source="id" />
-      <TextField label="First Name" source="relationships.created_by.first_name" />
-      <TextField label="Last name" source="relationships.created_by.last_name" />
-      <DateField label="Created date" source="created_at" />
-      <NumberField source="total_likes" />
-      <NumberField source="total_comments" />
+      <TextField sortable={false} label="Post Id" source="id" />
+      <TextField sortable={false} label="User Id" source="relationships.created_by.id" />
+      <TextField sortable={false} label="First Name" source="relationships.created_by.first_name" />
+      <TextField sortable={false} label="Last name" source="relationships.created_by.last_name" />
+      <DateField sortable={false} label="Created date" source="created_at" />
+      <NumberField sortable={false} source="total_likes" />
+      <NumberField sortable={false} source="total_comments" />
       <ShowButton />
       <DeleteWithConfirmButton />
       {/* <NumberField source="total_shares" /> */}

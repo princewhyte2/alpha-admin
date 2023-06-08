@@ -37,12 +37,18 @@ export default async function handler (
       // Handle PUT request
       // ...
       break
-    case 'Delete':
-       const { id } = req.query
+    case 'DELETE':
+      try {
+         const { id } = req.query
          const response = await axios.delete(`${BASE_URL}/jobs/${id}`, { headers })
-        // console.log('job by id', response.data)
+        console.log('job by id', response.data)
         // res.setHeader('Content-Range', response.data?.result?.meta.total)
         return res.status(200).json('resource deleted successfully')
+      } catch (error:any) {
+        console.log('job id error',error.response.data.message)
+        res.status(503).json({ message: 'Error' })
+      }
+      
       // Handle POST request
       // ...
       break

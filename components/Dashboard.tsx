@@ -64,21 +64,38 @@ const profiledata = [
 //   </ResponsiveContainer>
 // )
 const apiUrl = "https://backend-staging.workfynder.com/api"
-const getDashBoardInfo = async () => {
-  const response = await httpClient(apiUrl + "/dashboard")
+const getDashBoardInfo = async (url: string) => {
+  const response = await httpClient(apiUrl + url)
   return response.json.result
 }
+
+const monthList = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+]
 const Dashboard = () => {
   const redirect = useRedirect()
-  // const [data, setData] = React.useState([
-  //   { name: "Jan", employer: 40, pv: 90, amt: 100 },
-  //   { name: "Feb", employer: 70, pv: 50, amt: 2400 },
-  //   { name: "Mar", employer: 20, pv: 60, amt: 2400 },
-  //   { name: "Apr", employer: 70, pv: 100, amt: 2400 },
-  //   { name: "May", employer: 57, pv: 120, amt: 2400 },
-  //   { name: "Jun", employer: 29, pv: 75, amt: 2400 },
-  // ])
-  const { data } = useSWR("dashboard", getDashBoardInfo)
+  const [year, setYear] = React.useState(new Date().getFullYear())
+  const [month, setMonth] = React.useState(1)
+  const [jobMonth, setJobMonth] = React.useState(1)
+  const { data } = useSWR(
+    `/dashboard?profile_stats_year=${year}&profile_stats_start_month=${month}&profile_stats_end_month=${
+      month + 5
+    }&jobs_created_year=${year}&jobs_created_month=${jobMonth}`,
+    getDashBoardInfo,
+  )
+
+  console.log("the year", year)
 
   const computedProfile = React.useMemo(() => {
     if (!data) {
@@ -182,12 +199,15 @@ const Dashboard = () => {
                       height: "30px",
                     }}
                     fullWidth
-                    value={2023}
+                    value={year}
                     id="demo-simple-select"
                     label="Age"
+                    onChange={(event: any) => {
+                      setYear(event.target.value)
+                    }}
                   >
                     <MenuItem value={2023}>2023</MenuItem>
-                    <MenuItem value={2024}>2025</MenuItem>
+                    <MenuItem value={2024}>2024</MenuItem>
                     <MenuItem value={2025}>2025</MenuItem>
                   </Select>
                   {/* </FormControl> */}
@@ -205,13 +225,13 @@ const Dashboard = () => {
                       height: "30px",
                     }}
                     fullWidth
-                    value={"Jan - Jun"}
+                    value={month}
                     id="demo-simple-2"
                     label="Age"
+                    onChange={(event: any) => setMonth(event.target.value)}
                   >
-                    <MenuItem value={"Jan - Jun"}>Jan - Jun</MenuItem>
-                    <MenuItem value={"Jun - Aug"}>Jun - Aug</MenuItem>
-                    <MenuItem value={"Aug - Dec"}>Aug - Dec</MenuItem>
+                    <MenuItem value={1}>Jan - Jun</MenuItem>
+                    <MenuItem value={7}>July - Dec</MenuItem>
                   </Select>
                   {/* </FormControl> */}
                 </Box>
@@ -243,14 +263,13 @@ const Dashboard = () => {
         <Grid item xs={5}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Item>
+              <Item sx={{ cursor: "pointer" }} onClick={() => redirect("/jobs")}>
                 <Stack
                   sx={{ mb: 1, cursor: "pointer" }}
                   alignItems={"center"}
                   direction={"row"}
                   justifyContent={"space-between"}
                   spacing={2}
-                  onClick={() => redirect("/jobs")}
                 >
                   <Stack alignItems={"center"}>
                     <Typography variant="h6" gutterBottom>
@@ -269,13 +288,16 @@ const Dashboard = () => {
                         height: "30px",
                       }}
                       fullWidth
-                      value={"January"}
+                      value={jobMonth}
                       id="demo-simple-4"
                       label="Age"
+                      onChange={(event: any) => setJobMonth(event.target.value)}
                     >
-                      <MenuItem value={"January"}>January</MenuItem>
-                      <MenuItem value={"February"}>February</MenuItem>
-                      <MenuItem value={"March"}>March</MenuItem>
+                      {monthList.map((item, index) => (
+                        <MenuItem key={item} value={index + 1}>
+                          {item}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </Stack>
                 </Stack>
@@ -297,7 +319,7 @@ const Dashboard = () => {
               </Item>
             </Grid>
             <Grid item xs={12}>
-              <Item>
+              <Item onClick={() => redirect("/referrals")} sx={{ cursor: "pointer" }}>
                 <Stack
                   // sx={{ mb: 4 }}
                   alignItems={"center"}

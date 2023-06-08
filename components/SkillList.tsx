@@ -25,7 +25,7 @@ export const SkillList = () => (
     <Datagrid bulkActionButtons={false} rowClick="edit">
       {/* <TextField source="id" /> */}
       <ReferenceField sortable={false} source="occupation_id" reference="occupations" />
-      <TextField sortable={false} source="name" />
+      <TextField sortable={false} source="name" label="Skill" />
       {/* <NumberField source="status" /> */}
       <DateField sortable={false} label="Created date" source="created_at" />
       <DateField sortable={false} label="Updated date" source="updated_at" />

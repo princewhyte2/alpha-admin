@@ -19,7 +19,8 @@ const exporter = (users: any) => {
     const { id, preferred_gender, closing_at, created_at, duration, location, company, occupation } = user // omit backlinks and author
 
     return {
-      id,
+      "Job Id": id,
+      "User Id": company.owned_by.id,
       "Company Name": company.name,
       Occupation: occupation.name,
       location,
@@ -33,7 +34,8 @@ const exporter = (users: any) => {
     postsForExport,
     {
       headers: [
-        "id",
+        "Job Id",
+        "User Id",
         "Company Name",
         "Occupation",
         "location",
@@ -57,13 +59,15 @@ const postFilters = [
   <TextInput key="location" label="location" source="location" />,
   <ReferenceInput key="company_id" label="company" source="company_id" reference="employers" />,
   // <ReferenceInput source="company_id" reference="companies" />
-  <DateInput key="closing_at_from_date" label="closing date" source="closing_at" />,
+  <DateInput key="closing_at_from_date" label="closing from" source="closing_at_from_date" />,
+  <DateInput key="closing_at_to_date" label="closing to" source="closing_at_to_date" />,
 ]
 
 export const JobList = () => (
-  <MyList title="Jobs" exporter={exporter} filters={postFilters} perPage={15}>
+  <MyList title="Jobs" exporter={exporter} filters={postFilters} isCreate perPage={15}>
     <Datagrid bulkActionButtons={false}>
-      <TextField sortable={false} source="id" />
+      <TextField label="Job Id" sortable={false} source="id" />
+      <TextField sortable={false} label="User Id" source="company.owned_by.id" />
       {/* <ReferenceField source="company_id" reference="companies" /> */}
       {/* <NumberField source="posted_by.id" /> */}
       <TextField sortable={false} source="company.name" />

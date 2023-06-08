@@ -39,9 +39,15 @@ export default async function handler (
       // ...
       break
     case 'DELETE':
-      const { id } = req.query
+      try {
+         const { id } = req.query
       const response = await axios.delete(`${BASE_URL}/posts/${id}`, { headers })
       return res.status(200).json('resource deleted successfully')
+      } catch (error:any) {
+        console.log("post error",error.response.data.message)
+        res.status(503).json({ message: 'Error' })
+      }
+     
       
       
       // Handle POST request

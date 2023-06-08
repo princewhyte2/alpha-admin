@@ -16,7 +16,7 @@ import {
 } from "react-admin"
 import { Stack } from "@mui/material"
 import jsonExport from "jsonexport/dist"
-import { MyList } from "./ArtisanLists"
+import { CustomBool, MyList } from "./ArtisanLists"
 import { PostPagination } from "./OccupationsList"
 const postFilters = [
   // <TextInput key="q" label="Search" source="q" alwaysOn />,
@@ -31,7 +31,7 @@ const exporter = (users: any) => {
     const { id, first_name, middle_name, last_name, relationships, referrer_point } = user // omit backlinks and author
 
     return {
-      id,
+      "User Id": id,
       "Company Name": relationships.company?.name,
       Industry: relationships.company?.business_sector.name,
       "Company Email": relationships.company?.email,
@@ -45,7 +45,7 @@ const exporter = (users: any) => {
     postsForExport,
     {
       headers: [
-        "id",
+        "User Id",
         "Company Name",
         "Industry",
         "Company Email",
@@ -68,7 +68,7 @@ export const EmployerList = () => (
 
       // rowClick="edit"
     >
-      <TextField sortable={false} source="id" />
+      <TextField label="User Id" sortable={false} source="id" />
       <TextField sortable={false} label="Company Name" source="relationships.company.name" />
       <TextField sortable={false} label="Industry" source="relationships.company.business_sector.name" />
       {/* <TextField source="title" /> */}
@@ -79,6 +79,9 @@ export const EmployerList = () => (
       {/* <TextField source="user_type" /> */}
       {/* <TextField source="gender" /> */}
       <TextField sortable={false} source="referrer_point" />
+      {/* <BooleanField source="is_banned" />
+       */}
+      <CustomBool />
       <ShowButton />
       {/* <DateField source="date_of_birth" />
       <TextField source="referrer_code" />
