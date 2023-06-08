@@ -15,7 +15,7 @@ import {
   FilterButton,
   downloadCSV,
   ListBase,
-  Title,
+  WrapperField,
   ListToolbar,
   Pagination,
   TopToolbar,
@@ -105,7 +105,9 @@ export const ArtisanList = () => (
       <EmailField sortable={false} source="email" />
       <TextField sortable={false} source="gender" />
       <TextField sortable={false} source="referrer_point" />
-      <CustomBool />
+      <WrapperField label="status">
+        <CustomBool />
+      </WrapperField>
       <ShowButton />
       {/* <DateField source="date_of_birth" />
       <TextField source="referrer_code" />

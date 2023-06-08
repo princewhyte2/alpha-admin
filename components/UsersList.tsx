@@ -15,7 +15,7 @@ import {
   ReferenceInput,
   DeleteWithConfirmButton,
   useNotify,
-  Button,
+  WrapperField,
   useRecordContext,
   useDelete,
   Confirm,
@@ -119,7 +119,9 @@ export const UserList = () => {
         <EmailField sortable={false} source="email" />
         <TextField sortable={false} source="gender" />
         <TextField sortable={false} source="referrer_point" />
-        <CustomBool />
+        <WrapperField label="status">
+          <CustomBool />
+        </WrapperField>
         {/* <PayButton /> */}
         {/* <DeleteWithConfirmButton
           icon={<PaymentIcon />}

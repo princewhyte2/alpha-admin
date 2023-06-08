@@ -9,7 +9,7 @@ import {
   NumberField,
   TextField,
   TextInput,
-  CreateButton,
+  WrapperField,
   FilterForm,
   FilterButton,
   downloadCSV,
@@ -81,7 +81,9 @@ export const EmployerList = () => (
       <TextField sortable={false} source="referrer_point" />
       {/* <BooleanField source="is_banned" />
        */}
-      <CustomBool />
+      <WrapperField label="status">
+        <CustomBool />
+      </WrapperField>
       <ShowButton />
       {/* <DateField source="date_of_birth" />
       <TextField source="referrer_code" />
