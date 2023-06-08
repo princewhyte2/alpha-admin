@@ -105,7 +105,7 @@ export const ArtisanList = () => (
       <EmailField sortable={false} source="email" />
       <TextField sortable={false} source="gender" />
       <TextField sortable={false} source="referrer_point" />
-      <WrapperField label="status">
+      <WrapperField label="Status">
         <CustomBool />
       </WrapperField>
       <ShowButton />

@@ -81,7 +81,7 @@ export const EmployerList = () => (
       <TextField sortable={false} source="referrer_point" />
       {/* <BooleanField source="is_banned" />
        */}
-      <WrapperField label="status">
+      <WrapperField label="Status">
         <CustomBool />
       </WrapperField>
       <ShowButton />
