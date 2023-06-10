@@ -20,6 +20,7 @@ import {
   useDelete,
   Confirm,
   DeleteButton,
+  BulkDeleteButton,
 } from "react-admin"
 import jsonExport from "jsonexport/dist"
 import { CustomBool, MyList } from "./ArtisanLists"
@@ -84,15 +85,15 @@ const PayButton = () => {
 
   return (
     <>
-      <EditButton icon={<PaymentIcon />} sx={{ color: "green" }} label="Pay" onClick={handleClick} />
-      <Confirm
+      <BulkDeleteButton icon={<PaymentIcon />} sx={{ color: "green" }} label="Pay" />
+      {/* <Confirm
         isOpen={open}
         loading={isLoading}
         title={`Make payment to #${record && record.id}`}
         content="Are you sure you have made payment to this user?"
         onConfirm={handleConfirm}
         onClose={handleDialogClose}
-      />
+      /> */}
     </>
   )
 }
@@ -101,13 +102,16 @@ export const UserList = () => {
     <MyList sortable={false} title="Users" exporter={exporter} perPage={15} filters={postFilters}>
       <Datagrid
         bulkActionButtons={false}
-        sx={{
-          // backgroundColor: "Lavender",
-          "& .RaDatagrid-headerCell": {
-            backgroundColor: "#3E4095",
-            color: "white",
-          },
-        }}
+        // bulkActionButtons={<PayButton />}
+        sx={
+          {
+            // backgroundColor: "Lavender",
+            // "& .RaDatagrid-headerCell": {
+            //   backgroundColor: "#3E4095",
+            //   color: "white",
+            // },
+          }
+        }
         // rowClick="edit"
       >
         <TextField label="User Id " sortable={false} source="id" />

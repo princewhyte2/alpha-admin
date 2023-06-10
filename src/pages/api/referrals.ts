@@ -43,8 +43,12 @@ export default async function handler (
       // Handle PUT request
       // ...
       break
-    case 'POST':
+    case 'DELETE':
       // Handle POST request
+      const query = {...req.query}
+      const response = await axios.get(`${BASE_URL}/referrals?${stringify(query)}`, { headers })
+        console.log('referrals', response.data.result)
+        res.setHeader('Content-Range', response.data?.result?.referrers.total)
       // ...
       break
     default:

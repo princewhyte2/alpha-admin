@@ -27,7 +27,7 @@ export default async function handler (
         const response = await axios.get(`${BASE_URL}/industries/${id}`, { headers })
         console.log('industries', response.data)
        
-        return res.status(200).json(response.data.result.industries)
+        return res.status(200).json(response.data.result.industry_sector)
       } catch (err) {
         console.log(err)
         res.status(503).json({ message: 'Error' })
@@ -41,7 +41,7 @@ export default async function handler (
         const response = await axios.patch(`${BASE_URL}/industries/${id}`, { name:req.body.name },{ headers })
         console.log('industries', response.data)
        
-        return res.status(200).json(response.data.result.industries)
+        return res.status(200).json('Updated')
       } catch (err) {
         console.log(err)
         res.status(503).json({ message: 'Error' })

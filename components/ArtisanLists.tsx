@@ -65,7 +65,9 @@ export const MyList = ({ isCreate = false, children, actions, filters, title, ..
       </Typography>
       {/* <Title title={title} /> */}
       <ListToolbar filters={filters} actions={<ListActions isCreate={isCreate} />} />
-      <Card>{children}</Card>
+
+      {children}
+      {/* </Card> */}
       <PostPagination />
       {/* <Pagination /> */}
     </ListBase>

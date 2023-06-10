@@ -71,6 +71,7 @@ body {
   margin: 40px 0 0 0;
   padding: 16px;
 }
+
 body {
   color: rgb(var(--foreground-rgb));
   /* background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
@@ -81,6 +82,10 @@ body {
 .RaAppBar-toolbar {
   background: #3e4095;
 }
+.RaBulkActionsToolbar-toolbar {
+  z-index: 100 !important;
+}
+
 .RaSidebar-docked {
   margin-top: -46px !important;
   z-index: 20000;

@@ -19,26 +19,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     case "GET":
       try {
         const query = {
-          // shouldPaginate:"yes",
+          shouldPaginate:"yes",
           ...req.query,
         }
-        console.log('see query',req.query)
-
-        if (req.query.filter) {
-          const response = await axios.get(`${BASE_URL}/industries`,{headers})
-          res.setHeader("Content-Range", response.data?.result?.industries.length)
-          return res.status(200).json(response.data?.result?.industries)
-        } else {
-           const response = await axios.get(`${BASE_URL}/industries?${stringify(query)}`, { headers })
+       
+        const response = await axios.get(`${BASE_URL}/industries?${stringify(query)}`, { headers })
         console.log("response", response.data)
-        if (req.query.shouldPaginate) {
+        // if (req.query.shouldPaginate) {
           res.setHeader("Content-Range", response.data?.result?.industries.total)
           return res.status(200).json(response.data?.result?.industries.data)
-        } else {
-          res.setHeader("Content-Range", response.data?.result?.industries.length)
-          return res.status(200).json(response.data?.result?.industries)
-        }
-        }
+        // } else {
+        //   res.setHeader("Content-Range", response.data?.result?.industries.length)
+        //   return res.status(200).json(response.data?.result?.industries)
+        // }
+        
 
        
       } catch (err) {
