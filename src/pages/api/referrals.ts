@@ -17,7 +17,7 @@ export default async function handler (
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  console.log('token',token)
+  // console.log('token',token)
 
   const headers = {
     Authorization: token
@@ -45,10 +45,20 @@ export default async function handler (
       break
     case 'DELETE':
       // Handle POST request
-      const query = {...req.query}
-      const response = await axios.get(`${BASE_URL}/referrals?${stringify(query)}`, { headers })
+      try {
+        const parseFilter = JSON.parse( req.query.filter as string)
+      // console.log('request',parseFilter.id)
+      // return res.status(405).json({ message: 'Method Not Allowed' })
+      const response = await axios.post(`${BASE_URL}/bulk/referrals/payments`, {
+        referral_ids: parseFilter.id
+      }, { headers })
         console.log('referrals', response.data.result)
         res.setHeader('Content-Range', response.data?.result?.referrers.total)
+      } catch (error: any) {
+        
+        res.status(503).json({ message: 'Error occured' })
+      }
+      
       // ...
       break
     default:

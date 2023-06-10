@@ -89,7 +89,11 @@ const PayButton = ({ selectedIds }: any) => {
       onSettled: (data, error) => {
         // TypeScript knows that data is of type Product[]
         // TypeScript knows that error is of type Error
-        notify("Payment Successful")
+        if (error) {
+          notify("Payment wasn't successful")
+        } else {
+          notify("Payment Successful")
+        }
       },
     },
   )
