@@ -121,7 +121,7 @@ const Dashboard = () => {
     return finalData
   }, [data])
 
-  // console.log("dashboard", data)
+  console.log("dashboard", data)
 
   return (
     <Container disableGutters sx={{ py: 4 }} maxWidth="xl">
@@ -321,14 +321,14 @@ const Dashboard = () => {
                 <Stack alignItems={"center"} direction={"row"} justifyContent={"space-between"}>
                   <Stack direction={"row"} spacing={2}>
                     <Typography component={"span"} sx={{ color: "#3A7C0E" }}>
-                      Opened: 27
+                      Opened: {data?.total_opened_jobs_for_month}
                     </Typography>
 
                     <Typography component={"span"} sx={{ color: "#D92C20" }}>
-                      Closed: 8
+                      Closed: {data?.total_closed_jobs_for_month}
                     </Typography>
                   </Stack>
-                  <Typography sx={{ color: "#989898" }}>10 Employers</Typography>
+                  <Typography sx={{ color: "#989898" }}>{data?.total_employers_for_month} Employers</Typography>
                 </Stack>
               </Item>
             </Grid>

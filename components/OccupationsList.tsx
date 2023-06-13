@@ -25,9 +25,9 @@ export const OccupationList = () => (
     <Datagrid bulkActionButtons={false} rowClick="edit">
       {/* <TextField source="id" /> */}
       <TextField sortable={false} source="name" />
-      {/* <TextField source="description" /> */}
+      <TextField label="Industry" source="industry.name" />
       {/* <NumberField source="active" /> */}
-      <ReferenceField sortable={false} source="industry_id" reference="industries" />
+      {/* <ReferenceField sortable={false} source="industry_id" reference="industries" /> */}
       <EditButton />
       {/* <DeleteWithConfirmButton /> */}
     </Datagrid>
