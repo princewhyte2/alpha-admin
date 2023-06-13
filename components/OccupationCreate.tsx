@@ -7,10 +7,11 @@ import Card from "@mui/material/Card"
 import axiosInstance from "../services/instance"
 import Box from "@mui/material/Box"
 import TextField from "@mui/material/TextField"
+
 import Autocomplete from "@mui/material/Autocomplete"
 import Grid from "@mui/material/Grid"
 
-const getBusinessSectors = async () => {
+export const getBusinessSectors = async () => {
   const response = await axiosInstance.get("/industries")
   return response.data.result.industries
 }
