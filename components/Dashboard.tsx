@@ -206,9 +206,15 @@ const Dashboard = () => {
                       setYear(event.target.value)
                     }}
                   >
-                    <MenuItem value={2023}>2023</MenuItem>
-                    <MenuItem value={2024}>2024</MenuItem>
-                    <MenuItem value={2025}>2025</MenuItem>
+                    <MenuItem onClick={(event: any) => event.stopPropagation()} value={2023}>
+                      2023
+                    </MenuItem>
+                    <MenuItem onClick={(event: any) => event.stopPropagation()} value={2024}>
+                      2024
+                    </MenuItem>
+                    <MenuItem onClick={(event: any) => event.stopPropagation()} value={2025}>
+                      2025
+                    </MenuItem>
                   </Select>
                   {/* </FormControl> */}
                 </Box>
@@ -230,8 +236,12 @@ const Dashboard = () => {
                     label="Age"
                     onChange={(event: any) => setMonth(event.target.value)}
                   >
-                    <MenuItem value={1}>Jan - Jun</MenuItem>
-                    <MenuItem value={7}>July - Dec</MenuItem>
+                    <MenuItem onClick={(event: any) => event.stopPropagation()} value={1}>
+                      Jan - Jun
+                    </MenuItem>
+                    <MenuItem onClick={(event: any) => event.stopPropagation()} value={7}>
+                      July - Dec
+                    </MenuItem>
                   </Select>
                   {/* </FormControl> */}
                 </Box>
@@ -288,13 +298,17 @@ const Dashboard = () => {
                         height: "30px",
                       }}
                       fullWidth
+                      onClick={(event: any) => event.stopPropagation()}
                       value={jobMonth}
                       id="demo-simple-4"
                       label="Age"
-                      onChange={(event: any) => setJobMonth(event.target.value)}
+                      onChange={(event: any) => {
+                        event.stopPropagation()
+                        setJobMonth(event.target.value)
+                      }}
                     >
                       {monthList.map((item, index) => (
-                        <MenuItem key={item} value={index + 1}>
+                        <MenuItem onClick={(event: any) => event.stopPropagation()} key={item} value={index + 1}>
                           {item}
                         </MenuItem>
                       ))}

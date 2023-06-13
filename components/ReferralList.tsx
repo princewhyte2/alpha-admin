@@ -135,12 +135,12 @@ export const ReferralList = () => {
         {/* <BooleanField source="claimed" /> */}
         <DateField sortable={false} label="Created date" source="created_at" />
         <NumberField label="Referree Id" sortable={false} source="user.id" />
+        <TextField sortable={false} label="Referree Email" source="user.email" />
         <TextField sortable={false} label="Referree First Name" source="user.first_name" />
-        <TextField sortable={false} label="Referree Last Name" source="user.email" />
+        <TextField sortable={false} label="Referree Last Name" source="user.last_name" />
         {/* <ReferenceField source="user.id" reference="users" /> */}
         <NumberField sortable={false} label="Referrer Id" source="referred_by.id" />
         {/* <ReferenceField source="referred_by.id" reference="users" /> */}
-        <TextField sortable={false} label="Referrer Email" source="referred_by.email" />
         <TextField sortable={false} label="Referrer First Name" source="referred_by.first_name" />
         <TextField sortable={false} label="Referrer Last Name" source="referred_by.last_name" />
 

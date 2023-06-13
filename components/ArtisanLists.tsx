@@ -77,9 +77,9 @@ export const MyList = ({ isCreate = false, children, actions, filters, title, ..
 export const CustomBool = () => {
   const record = useRecordContext()
 
-  const value = record?.is_banned === 0
+  const value = record?.is_banned ? "Inactive" : "Active"
 
-  return <BooleanField label="is Blocked" source="is_banned" record={{ is_banned: value }} />
+  return <TextField label="is Blocked" source="is_banned" record={{ is_banned: value }} />
 }
 // sx={{ background: "#ffffff", margin: "40px 0 0 0", padding: "16px" }}
 export const ArtisanList = () => (
