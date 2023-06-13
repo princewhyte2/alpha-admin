@@ -127,13 +127,25 @@ const AdminProfile = () => {
             />
             <Stack spacing={2}>
               <Stack direction={"row"} alignItems={"center"} spacing={2}>
-                <Button variant="contained">Full name</Button>
+                {/* <Button variant="contained">Full name</Button>
+                 */}
+                <Box sx={{ background: "#3E4095", px: 4, py: 2, borderRadius: 1 }}>
+                  <Typography sx={{ color: "white", fontSize: { xs: 14, md: 16 } }} variant="h6">
+                    Full name
+                  </Typography>
+                </Box>
                 <Typography sx={{ color: "primary.dark", fontSize: { xs: 14, md: 16 } }} variant="h6">
                   {appUser?.first_name} {appUser?.last_name}
                 </Typography>
               </Stack>
               <Stack direction={"row"} alignItems={"center"} spacing={2}>
-                <Button variant="contained">Email Address</Button>
+                {/* <Button variant="contained">Email Address</Button>
+                 */}
+                <Box sx={{ background: "#3E4095", px: 4, py: 2, borderRadius: 1 }}>
+                  <Typography sx={{ color: "white", fontSize: { xs: 14, md: 16 } }} variant="h6">
+                    Email Address
+                  </Typography>
+                </Box>
                 <Typography sx={{ color: "primary.dark", fontSize: { xs: 14, md: 16 } }} variant="h6">
                   {appUser?.email}
                 </Typography>
@@ -145,7 +157,12 @@ const AdminProfile = () => {
                 </Typography>
               </Stack> */}
               <Stack direction={"row"} alignItems={"center"} spacing={2}>
-                <Button variant="contained">Phone number</Button>
+                {/* <Button variant="contained">Phone number</Button> */}
+                <Box sx={{ background: "#3E4095", px: 4, py: 2, borderRadius: 1 }}>
+                  <Typography sx={{ color: "white", fontSize: { xs: 14, md: 16 } }} variant="h6">
+                    Phone number
+                  </Typography>
+                </Box>
                 <Typography sx={{ color: "primary.dark", fontSize: { xs: 14, md: 16 } }} variant="h6">
                   {appUser?.phone_number}
                 </Typography>
