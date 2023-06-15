@@ -42,6 +42,7 @@ import CreatePost from "../../components/CreatePost"
 import { RolesList } from "../../components/Roles"
 import { PaymentList } from "../../components/PaymentLists"
 import CreateJob from "../../components/CreateJob"
+import CreateUser from "../../components/CreateUser"
 
 const theme = {
   ...defaultTheme,
@@ -105,7 +106,7 @@ const App = () => (
   >
     <Resource
       icon={PersonSearchIcon}
-      // create={ EditGuesser }
+      create={CreateUser}
       name="users"
       // edit={ EditGuesser }
       show={UserShow}

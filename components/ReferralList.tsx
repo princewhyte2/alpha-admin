@@ -12,7 +12,7 @@ import {
   Confirm,
   useRecordContext,
   useDelete,
-  BulkDeleteButton,
+  SimpleShowLayout,
   useNotify,
   Button,
   DateInput,
@@ -125,12 +125,19 @@ const PayButton = ({ selectedIds }: any) => {
   )
 }
 
+const PostShow = () => (
+  <SimpleShowLayout>
+    <TextField sortable={false} label="Referrer Point" source="referred_by.referral_point" />
+    <TextField sortable={false} label="Payment Date" source="payment_date" />
+  </SimpleShowLayout>
+)
+
 export const ReferralList = () => {
   // console.log("the record", record)
 
   return (
     <MyList title="Referrals" filters={postFilters} exporter={exporter} perPage={15}>
-      <Datagrid bulkActionButtons={<PayButton />}>
+      <Datagrid expand={<PostShow />} bulkActionButtons={<PayButton />}>
         {/* <TextField sortable={false} source="id" /> */}
         {/* <BooleanField source="claimed" /> */}
         <DateField sortable={false} label="Created date" source="created_at" />
@@ -140,13 +147,13 @@ export const ReferralList = () => {
         <TextField sortable={false} label="Referree Last Name" source="user.last_name" />
         {/* <ReferenceField source="user.id" reference="users" /> */}
         <NumberField sortable={false} label="Referrer Id" source="referred_by.id" />
-        {/* <ReferenceField source="referred_by.id" reference="users" /> */}
+        {/* referred_by <ReferenceField source="referred_by.id" reference="users" /> */}
         <TextField sortable={false} label="Referrer First Name" source="referred_by.first_name" />
         <TextField sortable={false} label="Referrer Last Name" source="referred_by.last_name" />
 
         <TextField sortable={false} label="Referrer Email" source="referred_by.email" />
         <TextField sortable={false} label="Status" source="payment_status" />
-        <TextField sortable={false} label="Payment Date" source="payment_date" />
+
         {/* <ShowButton icon={<PaymentIcon />} label="Pay" onClick={handleClick} /> */}
         {/* <Button label="Delete" onClick={handleClick} /> */}
         {/* <DeleteWithConfirmButton

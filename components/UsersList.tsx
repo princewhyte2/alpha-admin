@@ -99,19 +99,18 @@ const PayButton = () => {
 }
 export const UserList = () => {
   return (
-    <MyList sortable={false} title="Users" exporter={exporter} perPage={15} filters={postFilters}>
+    <MyList sortable={false} isCreate title="Users" exporter={exporter} perPage={15} filters={postFilters}>
       <Datagrid
         bulkActionButtons={false}
         // bulkActionButtons={<PayButton />}
-        sx={
-          {
-            // backgroundColor: "Lavender",
-            // "& .RaDatagrid-headerCell": {
-            //   backgroundColor: "#3E4095",
-            //   color: "white",
-            // },
-          }
-        }
+        sx={{
+          overflowX: "auto",
+          // backgroundColor: "Lavender",
+          // "& .RaDatagrid-headerCell": {
+          //   backgroundColor: "#3E4095",
+          //   color: "white",
+          // },
+        }}
         // rowClick="edit"
       >
         <TextField label="User Id " sortable={false} source="id" />
