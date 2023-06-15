@@ -26,32 +26,34 @@ import { useState } from "react"
 
 const exporter = (users: any) => {
   const postsForExport = users.map((ref: any) => {
-    const { id, created_at, user, referred_by } = ref // omit backlinks and author
+    const { created_at, user, referred_by, payment_status, payment_date } = ref // omit backlinks and author
 
     return {
-      id,
       "Created date": created_at,
-      "User Id": user.id,
-      "User Name": `${user.first_name} ${user.last_name}`,
-      "User Email": user.email,
+      "Referree Id": user.id,
+      "Referree Name": `${user.first_name} ${user.last_name}`,
+      "Referree Email": user.email,
       "Referrer Id": referred_by.id,
       "Referrer Email": referred_by.email,
       "Referrer Name": `${referred_by.first_name} ${referred_by.last_name}`,
       "Referrer point": referred_by.referral_point,
+      Status: payment_status,
+      "Payment Date": payment_date,
     }
   })
   jsonExport(
     postsForExport,
     {
       headers: [
-        "id",
         "Created date",
-        "User Id",
-        "User Email",
+        "Referree Id",
+        "Referree Email",
         "Referrer Id",
         "Referrer Email",
         "Referrer Name",
         "Referrer point",
+        "Status",
+        "Payment Date",
         // "Created date",
         // "closing_at",
       ], // order fields in the export
@@ -111,7 +113,6 @@ const PayButton = ({ selectedIds }: any) => {
   }
 
   //verify email address
-  
 
   return (
     <>

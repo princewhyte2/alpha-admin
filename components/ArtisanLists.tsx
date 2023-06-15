@@ -46,14 +46,34 @@ const postFilters = [
 ]
 const exporter = (users: any) => {
   const postsForExport = users.map((user: any) => {
-    const { id, title, first_name, middle_name, last_name, email, gender, referrer_point } = user // omit backlinks and author
+    const { id, title, first_name, middle_name, last_name, email, gender, referrer_point, is_banned } = user // omit backlinks and author
 
-    return { "User Id": id, title, first_name, middle_name, last_name, email, gender, referrer_point }
+    return {
+      "User Id": id,
+      title,
+      first_name,
+      middle_name,
+      last_name,
+      email,
+      gender,
+      referrer_point,
+      Status: is_banned ? "Inactive" : "Active",
+    }
   })
   jsonExport(
     postsForExport,
     {
-      headers: ["User Id", "title", "first_name", "middle_name", "last_name", "email", "gender", "referrer_point"], // order fields in the export
+      headers: [
+        "User Id",
+        "title",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "email",
+        "gender",
+        "referrer_point",
+        "Status",
+      ], // order fields in the export
     },
     (err: any, csv: any) => {
       downloadCSV(csv, "Workfynder Artisans") // download as 'posts.csv` file

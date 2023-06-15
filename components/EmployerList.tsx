@@ -39,7 +39,7 @@ const postFilters = [
 
 const exporter = (users: any) => {
   const postsForExport = users.map((user: any) => {
-    const { id, first_name, middle_name, last_name, relationships, referrer_point } = user // omit backlinks and author
+    const { id, first_name, middle_name, last_name, relationships, referrer_point, is_banned } = user // omit backlinks and author
 
     return {
       "User Id": id,
@@ -50,6 +50,7 @@ const exporter = (users: any) => {
       "Owners middle name": middle_name,
       "Owners last name": last_name,
       referrer_point,
+      Status: is_banned ? "Inactive" : "Active",
     }
   })
   jsonExport(
@@ -64,6 +65,7 @@ const exporter = (users: any) => {
         "Owners middle name",
         "Owners last name",
         "referrer_point",
+        "Status",
       ], // order fields in the export
     },
     (err: any, csv: any) => {
