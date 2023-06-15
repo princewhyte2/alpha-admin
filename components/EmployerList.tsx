@@ -11,7 +11,7 @@ import {
   TextInput,
   WrapperField,
   FilterForm,
-  FilterButton,
+  SelectInput,
   downloadCSV,
 } from "react-admin"
 import { Stack } from "@mui/material"
@@ -22,8 +22,19 @@ const postFilters = [
   // <TextInput key="q" label="Search" source="q" alwaysOn />,
   // <TextInput key="type" label="User Type" source="user_type" defaultValue="artisan" />,
   <TextInput key="title" label="Title" source="title" />,
-  <TextInput key="gender" label="Gender" source="gender" />,
+  // <TextInput key="gender" label="Gender" source="gender" />,
   <TextInput key="email" label="Email" source="email" />,
+  <SelectInput
+    key="status"
+    source="is_banned"
+    label="Status"
+    choices={[
+      { id: "yes", name: "Inactive" },
+      { id: "no", name: "Active" },
+    ]}
+  />,
+  <TextInput key="companyName" label="Company Name" source="user_company" />,
+  <TextInput key="companyIndustry" label="Company Industry" source="user_company_industry" />,
 ]
 
 const exporter = (users: any) => {

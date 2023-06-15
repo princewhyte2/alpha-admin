@@ -19,7 +19,7 @@ import {
   useRecordContext,
   useDelete,
   Confirm,
-  DeleteButton,
+  SelectInput,
   BulkDeleteButton,
 } from "react-admin"
 import jsonExport from "jsonexport/dist"
@@ -35,6 +35,18 @@ const postFilters = [
   <TextInput key="title" label="Title" source="title" />,
   <TextInput key="gender" label="Gender" source="gender" />,
   <TextInput key="email" label="Email" source="email" />,
+  <TextInput key="phone" label="Phone Number" source="phone_number" />,
+  <SelectInput
+    key="status"
+    source="is_banned"
+    label="Status"
+    choices={[
+      { id: "yes", name: "Inactive" },
+      { id: "no", name: "Active" },
+    ]}
+  />,
+  <TextInput key="companyName" label="Company Name" source="user_company" />,
+  <TextInput key="companyIndustry" label="Company Industry" source="user_company_industry" />,
 ]
 
 const exporter = (users: any) => {

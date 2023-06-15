@@ -110,6 +110,9 @@ const PayButton = ({ selectedIds }: any) => {
     }
   }
 
+  //verify email address
+  
+
   return (
     <>
       <Button onClick={handleClick} sx={{ color: "green" }} label="Pay" />

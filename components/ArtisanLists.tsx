@@ -20,6 +20,7 @@ import {
   Pagination,
   TopToolbar,
   ExportButton,
+  SelectInput,
 } from "react-admin"
 import { Stack } from "@mui/material"
 import Typography from "@mui/material/Typography"
@@ -32,6 +33,16 @@ const postFilters = [
   <TextInput key="title" label="Title" source="title" />,
   <TextInput key="gender" label="Gender" source="gender" />,
   <TextInput key="email" label="Email" source="email" />,
+  <TextInput key="phone" label="Phone Number" source="phone_number" />,
+  <SelectInput
+    key="status"
+    source="is_banned"
+    label="Status"
+    choices={[
+      { id: "yes", name: "Inactive" },
+      { id: "no", name: "Active" },
+    ]}
+  />,
 ]
 const exporter = (users: any) => {
   const postsForExport = users.map((user: any) => {
